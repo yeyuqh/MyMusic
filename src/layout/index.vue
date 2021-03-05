@@ -27,7 +27,7 @@ export default defineComponent({
 
     const classObj = computed(() => {
       return {
-        isSmall: store.getters.pageSize === 'small',
+        small: store.getters.pageSize === 'small',
         hideSidebar: !store.getters.sidebar.opened,
         openSidebar: store.getters.sidebar.opened
       }
@@ -73,6 +73,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
+    width: 100%;
   }
 
   .topbar-container_r {
@@ -94,7 +95,7 @@ body {
   }
 
   &.hideSidebar,
-  &.openSidebar.isSmall {
+  &.openSidebar.small {
     .main-container {
       margin-left: 0;
     }
@@ -105,6 +106,7 @@ body {
     position: fixed;
     bottom: 0;
     left: 0;
+    width: 100%;
   }
 }
 </style>
