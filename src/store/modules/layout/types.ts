@@ -6,12 +6,20 @@ export type LayoutState = {
   sidebar: {
     opened: boolean
   }
+  theme: ThemeTypes
+}
+
+export enum ThemeTypes {
+  auto = 'auto',
+  light = 'light',
+  dark = 'dark'
 }
 
 //* LayoutGetterTypes
 export type LayoutGetters<S = LayoutState> = {
   pageSize(state: S): string
   sidebar(state: S): LayoutState['sidebar']
+  theme(state: S): ThemeTypes
 }
 
 //* LayoutMutationTypes
@@ -20,7 +28,9 @@ export enum LayoutMutationTypes {
 
   ToggleSidebar = 'TOGGLE_SIDEBAR',
   HideSidebar = 'HIDE_SIDEBAR',
-  OpenSidebar = 'OPEN_SIDEBAR'
+  OpenSidebar = 'OPEN_SIDEBAR',
+
+  ChangeTheme = 'CHANGE_THEME'
 }
 
 export type LayoutMutations<S = LayoutState> = {
@@ -29,6 +39,8 @@ export type LayoutMutations<S = LayoutState> = {
   [LayoutMutationTypes.ToggleSidebar](state: S): void
   [LayoutMutationTypes.HideSidebar](state: S): void
   [LayoutMutationTypes.OpenSidebar](state: S): void
+
+  [LayoutMutationTypes.ChangeTheme](state: S, payload: ThemeTypes): void
 }
 
 //* LayoutActionTypes

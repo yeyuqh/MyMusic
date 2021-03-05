@@ -1,0 +1,28 @@
+@import './theme.scss';
+@mixin themeify($s: 0.3s) {
+  @each $theme-name, $theme-style in $themes {
+    $theme-style: $theme-style !global;
+    [data-theme='#{$theme-name}'] & {
+      @content;
+    }
+  }
+  transition: background-color $s, border-color $s;
+}
+@function Color($color) {
+  @return map-get($theme-style, $color);
+}
+
+// flex
+@mixin flex-center($direction: row, $aligin-items: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: $aligin-items;
+}
+
+@mixin flex-between($direction: row, $between: space-between) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $between;
+  align-items: center;
+}

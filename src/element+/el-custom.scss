@@ -1,0 +1,23 @@
+$--color-primary: $red;
+$--font-path: '~element-plus/lib/theme-chalk/fonts';
+
+@import '~element-plus/packages/theme-chalk/src/popover';
+@import '~element-plus/packages/theme-chalk/src/pagination'; // Popover 组件显示「箭头」需要引入此样式
+
+.el-popover {
+  padding: 8px !important;
+  border-radius: $radius_2 !important;
+  @include themeify {
+    background-color: Color(--main-bgcolor);
+    border-color: Color(--border-color_00);
+  }
+
+  .el-popper__arrow {
+    &:before {
+      @include themeify {
+        background-color: Color(--main-bgcolor);
+        border-color: Color(--border-color_00);
+      }
+    }
+  }
+}

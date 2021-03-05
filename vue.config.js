@@ -1,4 +1,9 @@
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
 module.exports = {
+  configureWebpack: {
+    // plugins: [new BundleAnalyzerPlugin()]
+  },
   chainWebpack: (config) => {
     // 配置全局 sass 变量
     //* https://www.npmjs.com/package/sass-resources-loader#vuejs-webpack-templatevue-cli3

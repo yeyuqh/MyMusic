@@ -1,0 +1,30 @@
+$themes: (
+  light: (
+    --font-color_00: #272727,
+    --font-color_01: #454545,
+    --font-color_02: #000000,
+    --font-color_03: $gray,
+    --border-color_00: #dfe4e7,
+    --border-color_01: #cbcbcb,
+    --border-color_03: #525252,
+    --topbar-bgcolor: rgba(245, 245, 245, 0.8),
+    --sidebar-bgcolor: #f6f6f6,
+    --playbar-bgcolor: rgba(255, 255, 255, 0.85),
+    --main-bgcolor: $white,
+    --hover-bgcolor: #f6f6f6
+  ),
+  dark: (
+    --font-color_00: #dddddd,
+    --font-color_01: #eeeeee,
+    --font-color_02: #ffffff,
+    --font-color_03: $gray_1,
+    --border-color_00: #30363d,
+    --border-color_01: #000000,
+    --border-color_03: #525252,
+    --topbar-bgcolor: rgba(37, 37, 37, 0.8),
+    --sidebar-bgcolor: #272727,
+    --playbar-bgcolor: rgba(30, 30, 30, 0.9),
+    --main-bgcolor: $black,
+    --hover-bgcolor: #272727
+  )
+);

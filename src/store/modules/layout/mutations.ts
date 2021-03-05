@@ -1,5 +1,5 @@
 import { MutationTree } from 'vuex'
-import { LayoutMutations, LayoutMutationTypes, LayoutState } from './types'
+import { LayoutMutations, LayoutMutationTypes, LayoutState, ThemeTypes } from './types'
 
 const mutations: MutationTree<LayoutState> & LayoutMutations = {
   [LayoutMutationTypes.TogglePageSize](state, size) {
@@ -14,6 +14,10 @@ const mutations: MutationTree<LayoutState> & LayoutMutations = {
   },
   [LayoutMutationTypes.OpenSidebar](state) {
     state.sidebar.opened = true
+  },
+
+  [LayoutMutationTypes.ChangeTheme](state, themeName: ThemeTypes) {
+    state.theme = themeName
   }
 }
 

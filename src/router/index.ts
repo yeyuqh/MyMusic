@@ -13,20 +13,20 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Discovery',
         component: () => import('@/views/discovery/index.vue'),
         redirect: '/discovery/recommend',
-        meta: { name: '发现音乐', isNav: true },
+        meta: { title: '发现音乐', isNav: true },
 
         children: [
           {
             path: '/discovery/recommend',
             name: 'Recommend',
             component: () => import('@/views/discovery/recommend/index.vue'),
-            meta: { name: '个性推荐' }
+            meta: { title: '个性推荐' }
           },
           {
             path: '/discovery/playlist',
             name: 'Playlist',
             component: () => import('@/views/discovery/playlist/index.vue'),
-            meta: { name: '歌单' }
+            meta: { title: '歌单' }
           }
         ]
       },
@@ -35,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Video',
         component: () => import('@/views/video/index.vue'),
         redirect: '/discovery/video',
-        meta: { name: '视频' }
+        meta: { title: '视频' }
       }
     ]
   }

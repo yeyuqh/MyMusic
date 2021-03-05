@@ -1,7 +1,7 @@
 <template>
   <div :class="['app-wrap', classObj]">
     <header class="topbar-container"><Topbar /></header>
-    <header class="topbar-container_r">topbar_r</header>
+    <header class="topbar-container_r"><Theme /></header>
 
     <aside v-if="classObj.openSidebar" class="sidebar-container"><Sidebar /></aside>
 
@@ -12,15 +12,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, onUnmounted } from 'vue'
+import { computed, defineComponent, onMounted, onUnmounted } from 'vue'
 import { useStore } from '@/store'
 import { AllMType } from '@/store/mutation-types'
 
 import { AppMain, Topbar, Sidebar, Playbar } from './components'
+import Theme from '@/components/Theme/index.vue'
 
 export default defineComponent({
   name: 'Layout',
-  components: { AppMain, Topbar, Sidebar, Playbar },
+  components: { AppMain, Topbar, Sidebar, Playbar, Theme },
 
   setup() {
     const store = useStore()
@@ -65,6 +66,10 @@ export default defineComponent({
 <style lang="scss">
 body {
   font-size: $fs_m;
+  @include themeify(0) {
+    color: Color(--font-color_00);
+    background-color: Color(--main-bgcolor);
+  }
 }
 
 .app-wrap {
@@ -80,7 +85,9 @@ body {
     z-index: $z-topbar_r;
     position: fixed;
     top: 0;
-    right: 0;
+    right: 15px;
+    height: $h-topbar;
+    @include flex-center;
   }
 
   .sidebar-container {
