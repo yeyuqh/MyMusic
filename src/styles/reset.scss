@@ -1,0 +1,72 @@
+body,
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+dl,
+dt,
+a,
+input,
+button,
+textarea,
+select {
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+html,
+body {
+  letter-spacing: 0.5px;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif, Microsoft Yahei, Hiragino Sans GB, Heiti SC,
+    WenQuanYi Micro Hei;
+  user-select: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+input {
+  border: none;
+  font: normal;
+}
+
+input:focus,
+a:focus {
+  outline: none;
+}
+
+button {
+  font-size: inherit;
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+}
+
+details::-webkit-details-marker {
+  display: none;
+}
+details::-moz-list-bullet {
+  font-size: 0;
+}
+summary {
+  outline: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
