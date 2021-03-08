@@ -13,7 +13,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Discovery',
         component: () => import('@/views/discovery/index.vue'),
         redirect: '/discovery/recommend',
-        meta: { title: '发现音乐', isNav: true },
+        meta: { title: '发现音乐', isNav: true, icon: 'music' },
 
         children: [
           {
@@ -34,8 +34,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/video',
         name: 'Video',
         component: () => import('@/views/video/index.vue'),
-        redirect: '/discovery/video',
-        meta: { title: '视频' }
+        meta: { title: '视频', icon: 'video' }
       }
     ]
   }

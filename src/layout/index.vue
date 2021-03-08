@@ -3,7 +3,9 @@
     <header class="topbar-container"><Topbar /></header>
     <header class="topbar-container_r"><Theme /></header>
 
-    <aside v-if="classObj.openSidebar" class="sidebar-container"><Sidebar /></aside>
+    <transition name="left">
+      <aside v-show="classObj.openSidebar" class="sidebar-container"><Sidebar /></aside>
+    </transition>
 
     <main class="main-container"><AppMain /></main>
 
@@ -14,7 +16,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, onUnmounted } from 'vue'
 import { useStore } from '@/store'
-import { AllMType } from '@/store/mutation-types'
+import { AllMType } from '@/store/types'
 
 import { AppMain, Topbar, Sidebar, Playbar } from './components'
 import Theme from '@/components/Theme/index.vue'
@@ -95,6 +97,7 @@ body {
     position: fixed;
     top: $h-topbar;
     left: 0;
+    height: calc(100% - #{$h-topbar} - #{$h-playbar});
   }
 
   .main-container {

@@ -9,9 +9,12 @@ $themes: (
     --border-color_03: #525252,
     --topbar-bgcolor: rgba(245, 245, 245, 0.8),
     --sidebar-bgcolor: #f6f6f6,
+    --sidebar-hover: #f0f0f0,
+    --sidebar-active: #ebebeb,
     --playbar-bgcolor: rgba(255, 255, 255, 0.85),
     --main-bgcolor: $white,
-    --hover-bgcolor: #f6f6f6
+    --hover-bgcolor: #f6f6f6,
+    --overlay-bgcolor: rgba(255, 255, 255, 0.3)
   ),
   dark: (
     --font-color_00: #dddddd,
@@ -23,8 +26,11 @@ $themes: (
     --border-color_03: #525252,
     --topbar-bgcolor: rgba(37, 37, 37, 0.8),
     --sidebar-bgcolor: #272727,
+    --sidebar-hover: #2d2d2d,
+    --sidebar-active: #323232,
     --playbar-bgcolor: rgba(30, 30, 30, 0.9),
     --main-bgcolor: $black,
-    --hover-bgcolor: #272727
+    --hover-bgcolor: #272727,
+    --overlay-bgcolor: rgba(0, 0, 0, 0.3)
   )
 );

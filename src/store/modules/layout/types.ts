@@ -44,16 +44,16 @@ export type LayoutMutations<S = LayoutState> = {
 }
 
 //* LayoutActionTypes
+export enum LayoutActionTypes {}
+
+export type LayoutActions = {}
+
 type LayoutActionsAugments = {
   commit<K extends keyof LayoutMutations>(
     key: K,
     payload: Parameters<LayoutMutations[K]>[1]
   ): ReturnType<LayoutMutations[K]>
 } & Omit<ActionContext<LayoutState, any>, 'commit'>
-
-export enum LayoutActionTypes {}
-
-export type LayoutActions = {}
 
 //* LayoutModuleTypes
 export type LayoutModuleTypes = Omit<VuexStore<LayoutState>, 'getters' | 'commit' | 'dispatch'> & {

@@ -16,8 +16,8 @@ const mutations: MutationTree<LayoutState> & LayoutMutations = {
     state.sidebar.opened = true
   },
 
-  [LayoutMutationTypes.ChangeTheme](state, themeName: ThemeTypes) {
-    state.theme = themeName
+  [LayoutMutationTypes.ChangeTheme](state, theme: ThemeTypes) {
+    state.theme = theme
   }
 }
 

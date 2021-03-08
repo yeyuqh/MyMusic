@@ -16,7 +16,7 @@
 import { computed, defineComponent, shallowRef } from 'vue'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 import { useStore } from '@/store'
-import { AllMType } from '@/store/mutation-types'
+import { AllMType } from '@/store/types'
 
 import Hamburger from '@/components/base/Hamburger/index.vue'
 

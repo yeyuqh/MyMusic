@@ -3,11 +3,17 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
 
 @import '~element-plus/packages/theme-chalk/src/popover';
 @import '~element-plus/packages/theme-chalk/src/pagination'; // Popover 组件显示「箭头」需要引入此样式
+@import '~element-plus/packages/theme-chalk/src/dialog';
+@import '~element-plus/packages/theme-chalk/src/divider';
+@import '~element-plus/packages/theme-chalk/src/button';
+@import '~element-plus/packages/theme-chalk/src/input';
 
 .el-popover {
   padding: 8px !important;
+  width: auto !important;
   border-radius: $radius_2 !important;
   @include themeify {
+    color: Color(--font-color_00);
     background-color: Color(--main-bgcolor);
     border-color: Color(--border-color_00);
   }
@@ -18,6 +24,59 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
         background-color: Color(--main-bgcolor);
         border-color: Color(--border-color_00);
       }
+    }
+  }
+}
+
+.el-divider {
+  @include themeify {
+    background-color: Color(--border-color_00);
+  }
+}
+
+.el-overlay {
+  backdrop-filter: blur(15px);
+  @include themeify {
+    background-color: Color(--overlay-bgcolor);
+  }
+}
+
+.el-dialog {
+  border-radius: $radius_3;
+  @include themeify {
+    background-color: Color(--main-bgcolor);
+  }
+}
+
+.el-input {
+  .el-input__inner {
+    background-color: transparent;
+    @include themeify {
+      color: Color(--font-color_00);
+      border-color: Color(--border-color_03);
+    }
+
+    &:focus {
+      border-color: $red;
+    }
+
+    &::-webkit-input-placeholder {
+      color: $gray;
+    }
+
+    &::-moz-placeholder {
+      color: $gray;
+    }
+
+    &::-ms-input-placeholder {
+      color: $gray;
+    }
+  }
+
+  .el-input__prefix,
+  .el-input__suffix {
+    @include themeify {
+      color: Color(--font-color_00) !important;
     }
   }
 }

@@ -26,3 +26,10 @@
   justify-content: $between;
   align-items: center;
 }
+
+// 文字溢出隐藏
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

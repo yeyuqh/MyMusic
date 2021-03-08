@@ -1,0 +1,30 @@
+.fade-enter-active,
+.fade-enter-leave-active {
+  transition: opacity 0.3s !important;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0 !important;
+  transition: opacity 0.3s !important;
+}
+
+.left-enter-active,
+.left-leave-active {
+  transition: transform 0.3s !important;
+}
+
+.left-enter-from,
+.left-leave-to {
+  transform: translate(-100%, 0) !important;
+}
+
+.right-enter-active,
+.right-leave-active {
+  transition: transform 0.3s !important;
+}
+
+.right-enter-from,
+.right-leave-to {
+  transform: translate(100%, 0) !important;
+}

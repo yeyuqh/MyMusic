@@ -1,6 +1,20 @@
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
+  devServer: {
+    host: '0.0.0.0',
+    port: 8080,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        ws: false,
+        pathRewrite: {
+          '/api': ''
+        }
+      }
+    }
+  },
   configureWebpack: {
     // plugins: [new BundleAnalyzerPlugin()]
   },

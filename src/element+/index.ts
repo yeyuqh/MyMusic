@@ -1,3 +1,3 @@
-import { ElPopover } from 'element-plus'
+import { ElPopover, ElDialog, ElDivider, ElButton, ElInput } from 'element-plus'
 
-export const components = [ElPopover]
+export const components = [ElPopover, ElDialog, ElDivider, ElButton, ElInput]

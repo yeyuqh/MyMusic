@@ -21,7 +21,7 @@
 <script lang="ts">
 import { computed, defineComponent, nextTick, onMounted } from 'vue'
 import { useStore } from '@/store'
-import { AllMType } from '@/store/mutation-types'
+import { AllMType } from '@/store/types'
 import { ThemeTypes } from '@/store/modules/layout/types'
 
 export default defineComponent({
