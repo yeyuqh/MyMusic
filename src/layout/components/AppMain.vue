@@ -14,6 +14,8 @@ export default defineComponent({
 
 <style lang="scss">
 .app-main {
+  margin: 0 auto;
   padding: 15px;
+  max-width: 1040px;
 }
 </style>

@@ -6,7 +6,7 @@
       </template>
 
       <button
-        v-for="theme in themes"
+        v-for="theme of themes"
         :key="theme.name"
         :class="['btn-theme_item', { active: theme.name === currentTheme }]"
         @click="onClickThemeItemBtn(theme.name)"

@@ -5,7 +5,7 @@
     </button>
 
     <nav :class="['topbar-nav', isSmall ? 'small' : '']">
-      <router-link v-for="nav in navs" :key="nav.name" tag="a" :to="nav.path">
+      <router-link v-for="nav of navs" :key="nav.name" tag="a" :to="nav.path">
         <template v-if="nav.meta">{{ nav.meta.title }}</template>
       </router-link>
     </nav>
@@ -51,6 +51,7 @@ export default defineComponent({
   position: relative;
   width: 100%;
   height: $h-topbar;
+  backdrop-filter: blur(15px);
   @include themeify {
     background-color: Color(--topbar-bgcolor);
   }

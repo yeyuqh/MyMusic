@@ -3,7 +3,7 @@
     <div class="login-container"><Login /></div>
 
     <nav class="sidebar-nav">
-      <router-link v-for="nav in navs" :key="nav.name" tag="a" :to="nav.path">
+      <router-link v-for="nav of navs" :key="nav.name" tag="a" :to="nav.path">
         <template v-if="nav.meta"><Icon :name="nav.meta.icon" />{{ nav.meta.title }}</template>
       </router-link>
     </nav>
