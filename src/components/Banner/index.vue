@@ -63,6 +63,8 @@ export default defineComponent({
           return 'prev'
         case next.value:
           return 'next'
+        default:
+          return ''
       }
     }
 
