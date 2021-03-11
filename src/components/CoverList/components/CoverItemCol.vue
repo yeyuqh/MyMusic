@@ -1,7 +1,7 @@
 <template>
   <ul v-for="(colItems, colIndex) of columnList" :key="colIndex" class="cover-item-col">
     <li v-for="(item, itemIndex) of colItems" :key="itemIndex" class="col-item">
-      <div class="cover"><el-image :src="utils.getImage(item.picUrl, 120)" lazy /></div>
+      <div class="cover"><el-image :src="utils.getImage(item.picUrl, '120y120')" lazy /></div>
 
       <div class="col-item_r">
         <span class="index">{{ formatterIndex(colIndex, itemIndex) }}</span>
@@ -27,21 +27,22 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
 import { utils } from '@/utils'
-import { RcmdNewSongTypes } from '@/api/discovery'
+
+import { RcmdNewSongTypes } from '@/api/song'
 
 export default defineComponent({
   name: 'ColumnsList',
   props: {
-    list: {
+    dataList: {
       type: Array as PropType<RcmdNewSongTypes['result']>,
       default: () => []
     }
   },
 
   setup(props) {
-    const limit = computed(() => Math.ceil(props.list.length / 2))
+    const limit = computed(() => Math.ceil(props.dataList.length / 2))
     const columnList = computed(() => {
-      return [props.list.slice(0, limit.value), props.list.slice(limit.value)]
+      return [props.dataList.slice(0, limit.value), props.dataList.slice(limit.value)]
     })
 
     function formatterIndex(listIndex: number, index: number) {

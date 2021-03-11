@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../axios'
 import Qs from 'qs'
 
 import { UserLoginStatusTypes, UserTypes } from './types'

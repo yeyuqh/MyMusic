@@ -1,22 +1,22 @@
 export type UserTypes = LoginSuccessTypes & LoginErrorTypes
 
-export type LoginSuccessTypes = {
+type LoginSuccessTypes = {
   loginType: number
   code: number
-  account: AccountTypes
+  account: Account
   token: string
-  profile: ProfileTypes
-  bindings: BindingTypes[]
+  profile: Profile
+  bindings: Bindings[]
   cookie: string
 }
 
-export type LoginErrorTypes = {
+type LoginErrorTypes = {
   code: number
   message: string
   msg: string
 }
 
-type BindingTypes = {
+type Bindings = {
   userId: number
   url: string
   expiresIn: number
@@ -28,7 +28,7 @@ type BindingTypes = {
   type: number
 }
 
-type ProfileTypes = {
+type Profile = {
   avatarImgIdStr: string
   backgroundImgIdStr: string
   userId: number
@@ -64,7 +64,7 @@ type ProfileTypes = {
   playlistBeSubscribedCount: number
 }
 
-type AccountTypes = {
+type Account = {
   id: number
   userName: string
   type: number
@@ -87,6 +87,6 @@ export type UserLoginStatusTypes = {
 
 type UserLoginData = {
   code: number
-  account: AccountTypes | null
-  profile: ProfileTypes | null
+  account: Account | null
+  profile: Profile | null
 }

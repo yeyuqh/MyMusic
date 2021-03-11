@@ -3,49 +3,43 @@
     <div class="banner-container"><Banner :banners="banners" /></div>
 
     <div class="playlist-container">
-      <CoverList v-if="rcmdPlaylists.length" title="推荐歌单">
-        <template v-for="(item, index) of rcmdPlaylists" :key="index">
-          <CoverItem height="100%" :pic-url="item.picUrl" :img-w="200" :name="item.name" :play-count="item.playCount" />
-        </template>
-      </CoverList>
-    </div>
-
-    <div class="newsong-container">
-      <CoverList
-        v-if="rcmdNewSongs.length"
-        title="最新音乐"
-        :grid-auto-fill="false"
-        :grid-col-num="2"
-        grid-col-gap="25px"
-      >
-        <CoverItemCol :list="rcmdNewSongs" />
-      </CoverList>
-    </div>
-
-    <div class="exclusive-container">
-      <CoverList v-if="rcmdExclusiveVideos.length" title="独家放送" :grid-auto-fill="false">
-        <template v-for="(item, index) of rcmdExclusiveVideos" :key="index">
-          <CoverItem height="37%" :pic-url="item.picUrl" :img-w="405" :img-h="150" :name="item.name" />
-        </template>
-      </CoverList>
-    </div>
-
-    <div class="mv-container">
-      <CoverList v-if="rcmdMVs.length" title="推荐MV" :grid-auto-fill="false">
-        <template v-for="(item, index) of rcmdMVs" :key="index">
+      <CoverList v-if="playlists.length" title="推荐歌单">
+        <template v-for="(playlist, index) of playlists" :key="index">
           <CoverItem
-            height="56%"
-            :pic-url="item.picUrl"
-            :img-w="355"
-            :img-h="200"
-            :name="item.name"
-            :play-count="item.playCount"
+            height="100%"
+            :pic-url="playlist.picUrl"
+            img-size="200y200"
+            :name="playlist.name"
+            :play-count="playlist.playCount"
           />
         </template>
       </CoverList>
     </div>
 
-    <Divider />
+    <div class="newsong-container">
+      <CoverList v-if="newSongs.length" title="最新音乐" :grid-auto-fill="false" :grid-col-num="2" grid-col-gap="25px">
+        <CoverItemCol :data-list="newSongs" />
+      </CoverList>
+    </div>
+
+    <div class="exclusive-container">
+      <CoverList v-if="exclusiveVideos.length" title="独家放送" :grid-auto-fill="false">
+        <template v-for="(video, index) of exclusiveVideos" :key="index">
+          <CoverItem height="37%" :pic-url="video.picUrl" img-size="405y150" :name="video.name" />
+        </template>
+      </CoverList>
+    </div>
+
+    <div class="mv-container">
+      <CoverList v-if="mvs.length" title="推荐MV" :grid-auto-fill="false">
+        <template v-for="(mv, index) of mvs" :key="index">
+          <CoverItem height="56%" :pic-url="mv.picUrl" img-size="355y200" :name="mv.name" :play-count="mv.playCount" />
+        </template>
+      </CoverList>
+    </div>
+
+    <Loding v-if="loding" :top="50" />
+    <Divider v-else />
   </div>
 </template>
 
@@ -57,18 +51,10 @@ import CoverList from '@/components/CoverList/index.vue'
 import CoverItem from '@/components/CoverList/components/CoverItem.vue'
 import CoverItemCol from '@/components/CoverList/components/CoverItemCol.vue'
 
-import {
-  BannerListTypes,
-  ExclusiveVideoTypes,
-  getBanners_,
-  getRcmdExclusiveVideos_,
-  getRcmdMVs_,
-  getRcmdNewSongs_,
-  getRcmdPlaylists_,
-  RcmdMVTypes,
-  RcmdNewSongTypes,
-  RcmdPlaylistTypes
-} from '@/api/discovery'
+import { BannerListTypes, getBanners_ } from '@/api/other'
+import { getRcmdPlaylists_, RcmdPlaylistsTypes } from '@/api/playlist'
+import { getRcmdNewSongs_, RcmdNewSongTypes } from '@/api/song'
+import { ExclusiveVideoTypes, getExclusiveVideos_, getRcmdMVs_, RcmdMVTypes } from '@/api/mv'
 
 export default defineComponent({
   name: 'Recommend',
@@ -77,28 +63,29 @@ export default defineComponent({
   setup() {
     const state = shallowReactive({
       loding: true,
+
       banners: [] as BannerListTypes['banners'],
-      rcmdPlaylists: [] as RcmdPlaylistTypes['result'],
-      rcmdExclusiveVideos: [] as ExclusiveVideoTypes['result'],
-      rcmdNewSongs: [] as RcmdNewSongTypes['result'],
-      rcmdMVs: [] as RcmdMVTypes['result']
+      playlists: [] as RcmdPlaylistsTypes['result'],
+      exclusiveVideos: [] as ExclusiveVideoTypes['result'],
+      newSongs: [] as RcmdNewSongTypes['result'],
+      mvs: [] as RcmdMVTypes['result']
     })
 
     async function getRcmdData() {
       const { data: banners } = await getBanners_()
       state.banners = banners.banners
 
-      const { data: rcmdPlaylists } = await getRcmdPlaylists_(12)
-      state.rcmdPlaylists = rcmdPlaylists.result
+      const { data: Playlists } = await getRcmdPlaylists_(12)
+      state.playlists = Playlists.result
 
-      const { data: rcmdExclusiveVideos } = await getRcmdExclusiveVideos_(4)
-      state.rcmdExclusiveVideos = rcmdExclusiveVideos.result
+      const { data: exclusiveVideos } = await getExclusiveVideos_(4)
+      state.exclusiveVideos = exclusiveVideos.result
 
-      const { data: rcmdNewSongs } = await getRcmdNewSongs_()
-      state.rcmdNewSongs = rcmdNewSongs.result
+      const { data: newSongs } = await getRcmdNewSongs_()
+      state.newSongs = newSongs.result
 
-      const { data: rcmdMVs } = await getRcmdMVs_()
-      state.rcmdMVs = rcmdMVs.result
+      const { data: mvs } = await getRcmdMVs_()
+      state.mvs = mvs.result
 
       state.loding = false
     }

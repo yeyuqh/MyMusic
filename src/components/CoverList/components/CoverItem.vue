@@ -1,7 +1,7 @@
 <template>
-  <li class="card">
+  <li class="corver-item">
     <div class="cover" :style="`padding-top: ${height}`">
-      <el-image :src="utils.getImage(picUrl, imgW, imgH)" lazy />
+      <el-image :src="utils.getImage(picUrl, imgSize)" lazy />
       <span v-if="playCount" class="info">
         <Icon name="arrow-r_fill" />
         {{ utils.numberFormatter(playCount) }}
@@ -19,8 +19,7 @@ export default defineComponent({
   name: 'MVCard',
   props: {
     picUrl: { type: String, required: true },
-    imgW: { type: Number, default: null },
-    imgH: { type: Number, default: null },
+    imgSize: { type: String, default: null },
     name: { type: String, default: '' },
     playCount: { type: Number, default: null },
     height: { type: String, default: '0' } // 容器高度百分比
@@ -33,7 +32,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.card {
+.corver-item {
   .cover {
     display: table;
     position: relative;

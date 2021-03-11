@@ -14,8 +14,12 @@ app
 
 // Icon
 import '@/icons/iconfont'
-import Icon from '@/components/base/Icon/index.vue'
+import Icon from '@/components/_base/Icon/index.vue'
 app.component('Icon', Icon)
+
+// Loding
+import Loding from '@/components/_base/Loading/index.vue'
+app.component('Loding', Loding)
 
 // Divider
 import Divider from '@/components/Divider/index.vue'

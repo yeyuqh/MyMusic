@@ -18,7 +18,7 @@ import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 import { useStore } from '@/store'
 import { AllMType } from '@/store/types'
 
-import Hamburger from '@/components/base/Hamburger/index.vue'
+import Hamburger from '@/components/_base/Hamburger/index.vue'
 
 export default defineComponent({
   name: 'Topbar',

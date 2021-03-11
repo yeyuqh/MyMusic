@@ -28,7 +28,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, PropType, reactive, toRefs } from 'vue'
 
-import { BannerListTypes } from '@/api/discovery'
+import { BannerListTypes } from '@/api/other'
 
 export default defineComponent({
   name: 'Banner',

@@ -16,9 +16,8 @@ export const utils = {
     return num.toString()
   },
 
-  getImage: function(url: string, w?: number, h?: number) {
-    if (!w) return url
-    if (!h) h = w
-    return url + `?param=${w}y${h}`
+  getImage: function(url: string, size?: string) {
+    if (!size) return url
+    return url + `?param=${size}`
   }
 }
