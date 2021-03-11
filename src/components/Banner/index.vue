@@ -35,9 +35,7 @@ export default defineComponent({
   props: {
     banners: {
       type: Array as PropType<BannerListTypes['banners']>,
-      default() {
-        return []
-      },
+      default: () => [],
       required: true
     } as const
   },
@@ -119,8 +117,8 @@ export default defineComponent({
     transition: all 0.6s cubic-bezier(0.3, 0.5, 0.3, 1);
 
     img {
-      display: block;
       width: 100%;
+      object-fit: cover;
     }
 
     .banner-type {

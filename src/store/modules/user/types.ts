@@ -22,11 +22,15 @@ export type UserMutations<S = UserState> = {
 
 //* UserActionTypes
 export enum UserActionTypes {
-  LOGIN = 'LOGIN'
+  LOGIN = 'LOGIN',
+  LOGOUT = 'LOGOUT',
+  GET_LOGIN_STATUS = 'GET_LOGIN_STATUS'
 }
 
 export type UserActions = {
   [UserActionTypes.LOGIN](context: UserActionsAugments, payload: { phone: number; password: string }): Promise<any>
+  [UserActionTypes.LOGOUT](context: UserActionsAugments): void
+  [UserActionTypes.GET_LOGIN_STATUS](context: UserActionsAugments): void
 }
 
 type UserActionsAugments = {

@@ -7,6 +7,7 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
 @import '~element-plus/packages/theme-chalk/src/divider';
 @import '~element-plus/packages/theme-chalk/src/button';
 @import '~element-plus/packages/theme-chalk/src/input';
+@import '~element-plus/packages/theme-chalk/src/image';
 
 .el-popover {
   padding: 8px !important;
@@ -31,6 +32,14 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
 .el-divider {
   @include themeify {
     background-color: Color(--border-color_00);
+  }
+
+  .el-divider__text {
+    font-size: $fs_s;
+    background-color: transparent !important;
+    @include themeify {
+      color: Color(--font-color_03);
+    }
   }
 }
 

@@ -34,7 +34,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/video',
         name: 'Video',
         component: () => import('@/views/video/index.vue'),
-        meta: { title: '视频', icon: 'video' }
+        meta: { title: '视频', isNav: true, icon: 'video' }
       }
     ]
   }

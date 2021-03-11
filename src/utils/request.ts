@@ -10,7 +10,7 @@ request.interceptors.response.use(
   (res) => {
     if (res.status === 200) return res
     else {
-      alert(res.statusText)
+      console.log(res.statusText)
       return Promise.reject(new Error(res.statusText))
     }
   },

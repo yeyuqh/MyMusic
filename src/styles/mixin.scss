@@ -33,3 +33,9 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+@mixin ellipsis-lines($num: 2) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $num;
+}

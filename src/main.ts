@@ -12,10 +12,14 @@ app
   .use(router)
   .mount('#app')
 
-// Icon 组件
+// Icon
 import '@/icons/iconfont'
 import Icon from '@/components/base/Icon/index.vue'
 app.component('Icon', Icon)
+
+// Divider
+import Divider from '@/components/Divider/index.vue'
+app.component('Divider', Divider)
 
 // element-plus 按需引入
 import '@/element+/el-custom.scss'

@@ -81,11 +81,11 @@ type AccountTypes = {
   anonimousUser: boolean
 }
 
-export interface UserLoginStatusTypes {
-  data: Data
+export type UserLoginStatusTypes = {
+  data: UserLoginData
 }
 
-interface Data {
+type UserLoginData = {
   code: number
   account: AccountTypes | null
   profile: ProfileTypes | null

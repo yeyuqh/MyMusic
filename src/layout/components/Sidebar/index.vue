@@ -3,9 +3,11 @@
     <div class="login-container"><Login /></div>
 
     <nav class="sidebar-nav">
-      <router-link v-for="nav of navs" :key="nav.name" tag="a" :to="nav.path">
-        <template v-if="nav.meta"><Icon :name="nav.meta.icon" />{{ nav.meta.title }}</template>
-      </router-link>
+      <template v-for="nav of navs" :key="nav.name">
+        <router-link v-if="nav.meta && nav.meta.isNav" tag="a" :to="nav.path">
+          <Icon :name="nav.meta.icon" />{{ nav.meta.title }}
+        </router-link>
+      </template>
     </nav>
   </div>
 </template>
@@ -51,14 +53,14 @@ export default defineComponent({
 
       &:hover {
         @include themeify {
-          background-color: Color(--sidebar-hover);
+          background-color: Color(--sidebar-hvcolor);
         }
       }
 
       &.router-link-active {
         color: $red;
         @include themeify {
-          background-color: Color(--sidebar-active);
+          background-color: Color(--sidebar-atcolor);
         }
       }
 

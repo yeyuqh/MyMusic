@@ -9,15 +9,27 @@ export function userLogin_(phone: number, password: string) {
     Qs.stringify({
       phone: phone,
       password: password
-    })
+    }),
+    {
+      params: {
+        t: new Date().getTime()
+      }
+    }
   )
 }
 
 export function userLogout_() {
-  return request.get<any>('/logout')
+  return request.get<any>('/logout', {
+    params: {
+      t: new Date().getTime()
+    }
+  })
 }
 
 export function userLoginStatus_() {
-  const timesTamp = new Date().getTime()
-  return request.get<UserLoginStatusTypes>('/login/status?timestamp=' + timesTamp)
+  return request.get<UserLoginStatusTypes>('/login/status', {
+    params: {
+      t: new Date().getTime()
+    }
+  })
 }

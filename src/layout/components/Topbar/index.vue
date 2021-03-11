@@ -59,7 +59,7 @@ export default defineComponent({
   .btn-toggle {
     position: absolute;
     top: 10px;
-    left: 15px;
+    left: $main-padding;
     width: 30px;
   }
 
@@ -71,7 +71,11 @@ export default defineComponent({
     }
 
     a {
-      padding: 0 15px;
+      margin: 0 15px;
+
+      &:first-child {
+        margin-left: $main-padding;
+      }
 
       &:hover {
         @include themeify {

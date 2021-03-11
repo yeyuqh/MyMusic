@@ -67,6 +67,7 @@ export default defineComponent({
 
 <style lang="scss">
 body {
+  min-width: 768px;
   font-size: $fs_m;
   @include themeify(0) {
     color: Color(--font-color_00);
@@ -76,27 +77,27 @@ body {
 
 .app-wrap {
   .topbar-container {
-    z-index: $z-topbar;
     position: fixed;
     top: 0;
     left: 0;
+    z-index: $z-topbar;
     width: 100%;
   }
 
   .topbar-container_r {
-    z-index: $z-topbar_r;
     position: fixed;
     top: 0;
-    right: 15px;
+    right: $main-padding;
+    z-index: $z-topbar_r;
     height: $h-topbar;
     @include flex-center;
   }
 
   .sidebar-container {
-    z-index: $z-sidebar;
     position: fixed;
     top: $h-topbar;
     left: 0;
+    z-index: $z-sidebar;
     height: calc(100% - #{$h-topbar} - #{$h-playbar});
   }
 
@@ -112,10 +113,10 @@ body {
   }
 
   .playbar-container {
-    z-index: $z-playbar;
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: $z-playbar;
     width: 100%;
   }
 }

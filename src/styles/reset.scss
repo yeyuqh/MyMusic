@@ -32,6 +32,10 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 ul,
@@ -55,6 +59,14 @@ button {
   color: inherit;
   border: none;
   cursor: pointer;
+}
+
+img {
+  display: block;
+
+  &[scr=''] {
+    opacity: 0;
+  }
 }
 
 details::-webkit-details-marker {

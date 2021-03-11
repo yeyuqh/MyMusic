@@ -46,9 +46,7 @@
 <script lang="ts">
 import { computed, defineComponent, onBeforeMount, reactive, toRefs } from 'vue'
 import { useStore } from '@/store'
-import { AllAType, AllMType } from '@/store/types'
-
-import { userLoginStatus_, userLogout_ } from '@/api/user'
+import { AllAType } from '@/store/types'
 
 export default defineComponent({
   name: 'Login',
@@ -95,8 +93,7 @@ export default defineComponent({
     }
 
     async function onClickLogoutBtn() {
-      await userLogout_()
-      store.commit(AllMType.SaveUserInfo, null)
+      store.dispatch(AllAType.LOGOUT)
     }
 
     function handleDialogClose() {
@@ -105,8 +102,7 @@ export default defineComponent({
 
     // 登录状态查询
     async function getLoginStatus() {
-      const { data: res } = await userLoginStatus_()
-      if (res.data) store.commit(AllMType.SaveUserInfo, res.data.profile)
+      store.dispatch(AllAType.GET_LOGIN_STATUS)
     }
 
     onBeforeMount(() => {
@@ -139,7 +135,6 @@ export default defineComponent({
     }
 
     img {
-      display: block;
       width: 100%;
       height: 100%;
     }
@@ -187,7 +182,7 @@ export default defineComponent({
 
     &:hover {
       @include themeify {
-        background-color: Color(--hover-bgcolor);
+        background-color: Color(--main-hvcolor);
       }
     }
   }
