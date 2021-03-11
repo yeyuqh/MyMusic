@@ -114,7 +114,7 @@ export default defineComponent({
   box-sizing: border-box;
   flex: 1;
   padding: 0 15px;
-  @include flex-between(row, start);
+  @include flex-between(row, flex-start);
 
   .index {
     display: inline-block;
