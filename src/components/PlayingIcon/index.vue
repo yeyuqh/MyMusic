@@ -1,6 +1,6 @@
 <template>
   <div class="playing-icon icon">
-    <div class="state-stop" v-if="!isPlaying">
+    <div v-if="!isPlaying" class="state-stop">
       <svg
         t="1608043409931"
         viewBox="0 0 1024 1024"
@@ -17,7 +17,7 @@
       </svg>
     </div>
 
-    <div class="state-playing" v-if="isPlaying && !audioSvg">
+    <div v-if="isPlaying && !audioSvg" class="state-playing">
       <svg
         t="1610089600816"
         viewBox="0 0 1024 1024"
@@ -34,7 +34,7 @@
       </svg>
     </div>
 
-    <div class="state-playing" v-if="isPlaying && audioSvg">
+    <div v-if="isPlaying && audioSvg" class="state-playing">
       <svg width="100%" height="100%" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
         <g transform="matrix(1 0 0 -1 0 55)">
           <rect width="10" height="20" rx="3">
