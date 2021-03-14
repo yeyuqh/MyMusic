@@ -1,6 +1,6 @@
 <template>
   <i id="icon">
-    <svg class="svg-icon" aria-hidden="true">
+    <svg aria-hidden="true">
       <use :xlink:href="id"></use>
     </svg>
   </i>
@@ -31,7 +31,7 @@ export default defineComponent({
   pointer-events: none;
 }
 
-.svg-icon {
+#icon svg {
   overflow: hidden;
   width: 1em;
   height: 1em;

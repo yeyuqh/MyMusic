@@ -1,10 +1,6 @@
-// AllActionTypes
-import { UserActionTypes } from './modules/user/types'
+import { LayoutActionTypes, LayoutMutationTypes } from './modules/layout/types'
+import { UserActionTypes, UserMutationTypes } from './modules/user/types'
+import { PlayerActionTypes, PlayerMutationTypes } from './modules/player/types'
 
-export const AllAType = { ...UserActionTypes }
-
-// AllMutationTypes
-import { LayoutMutationTypes } from './modules/layout/types'
-import { UserMutationTypes } from './modules/user/types'
-
-export const AllMType = { ...LayoutMutationTypes, ...UserMutationTypes }
+export const AllATypes = { ...LayoutActionTypes, ...UserActionTypes, ...PlayerActionTypes }
+export const AllMTypes = { ...LayoutMutationTypes, ...UserMutationTypes, ...PlayerMutationTypes }

@@ -39,3 +39,29 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: $num;
 }
+
+// 滚动条样式
+@mixin scrollbar-style {
+  // Firefox
+  scrollbar-width: thin;
+  scrollbar-color: $gray transparent;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: $gray;
+  }
+}
+@mixin scrollbar-hide {
+  // Firefox
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+  }
+}

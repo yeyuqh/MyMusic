@@ -23,9 +23,9 @@ const routes: Array<RouteRecordRaw> = [
             meta: { title: '个性推荐' }
           },
           {
-            path: '/discovery/playlist',
-            name: 'Playlist',
-            component: () => import('@/views/discovery/playlist/index.vue'),
+            path: '/discovery/playlists',
+            name: 'Playlists',
+            component: () => import('@/views/discovery/playlists/index.vue'),
             meta: { title: '歌单' }
           }
         ]
@@ -35,6 +35,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Video',
         component: () => import('@/views/video/index.vue'),
         meta: { title: '视频', isNav: true, icon: 'video' }
+      },
+      {
+        path: 'playlist',
+        name: 'Playlist',
+        component: () => import('@/views/playlist/index.vue')
       }
     ]
   }

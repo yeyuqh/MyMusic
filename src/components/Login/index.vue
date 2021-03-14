@@ -5,7 +5,15 @@
       <img v-else :src="user.avatarUrl" />
     </div>
 
-    <el-popover placement="right-start" trigger="click" popper-class="user-popper" :disabled="!user">
+    <el-popover
+      :append-to-body="false"
+      placement="right-start"
+      trigger="hover"
+      popper-class="user__popper"
+      :disabled="!user"
+      :enterable="true"
+      :show-after="200"
+    >
       <template #reference>
         <div class="user-name" @click="onClickUserName">
           {{ !user ? '未登录' : user.nickname }} <Icon v-show="user" name="arrow-r_fill" />
@@ -13,15 +21,14 @@
       </template>
 
       <div class="user-info">
-        <div class="info">
-          <p><span>动态</span><span>123</span></p>
-          <el-divider direction="vertical" />
-          <p><span>关注</span><span>123</span></p>
-          <el-divider direction="vertical" />
-          <p><span>粉丝</span><span>999999</span></p>
-        </div>
-        <button class="btn-logout" @click="onClickLogoutBtn"><Icon name="logout" /> 退出登录</button>
+        <p><span>动态</span><span>123</span></p>
+        <el-divider direction="vertical" />
+        <p><span>关注</span><span>123</span></p>
+        <el-divider direction="vertical" />
+        <p><span>粉丝</span><span>999999</span></p>
       </div>
+
+      <button class="btn-logout" @click="onClickLogoutBtn"><Icon name="logout" /> 退出登录</button>
     </el-popover>
 
     <!-- 登录弹窗 -->
@@ -30,7 +37,7 @@
       width="300px"
       title="手机号登录"
       :append-to-body="true"
-      custom-class="login-dialog"
+      custom-class="login__dialog"
       destroy-on-close
       :show-close="false"
       @close="handleDialogClose"
@@ -46,7 +53,7 @@
 <script lang="ts">
 import { computed, defineComponent, onBeforeMount, reactive, toRefs } from 'vue'
 import { useStore } from '@/store'
-import { AllAType } from '@/store/types'
+import { AllATypes } from '@/store/types'
 
 export default defineComponent({
   name: 'Login',
@@ -83,7 +90,7 @@ export default defineComponent({
       }
 
       store
-        .dispatch(AllAType.LOGIN, { phone: state.phone, password: state.password })
+        .dispatch(AllATypes.LOGIN, { phone: state.phone, password: state.password })
         .then(() => {
           state.dialogVisible = false
         })
@@ -93,7 +100,7 @@ export default defineComponent({
     }
 
     async function onClickLogoutBtn() {
-      store.dispatch(AllAType.LOGOUT)
+      store.dispatch(AllATypes.LOGOUT)
     }
 
     function handleDialogClose() {
@@ -102,7 +109,7 @@ export default defineComponent({
 
     // 登录状态查询
     async function getLoginStatus() {
-      store.dispatch(AllAType.GET_LOGIN_STATUS)
+      store.dispatch(AllATypes.GET_LOGIN_STATUS)
     }
 
     onBeforeMount(() => {
@@ -156,15 +163,14 @@ export default defineComponent({
 </style>
 
 <style lang="scss">
-.user-popper {
-  .info {
+.user__popper {
+  .user-info {
     padding: 5px;
     border-bottom: 1px solid;
+    @include flex-between;
     @include themeify {
       border-color: Color(--border-color_00);
     }
-
-    @include flex-between;
 
     p {
       width: 60px;
@@ -188,7 +194,7 @@ export default defineComponent({
   }
 }
 
-.login-dialog {
+.login__dialog {
   .el-dialog__title {
     @include themeify {
       color: Color(--font-color_00);

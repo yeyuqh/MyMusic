@@ -1,7 +1,7 @@
 <template>
   <div class="divider">
     <span class="line"></span>
-    <p v-if="text">{{ text }}</p>
+    <p v-if="text" class="text">{{ text }}</p>
     <span class="line"></span>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .divider {
-  margin: 50px 0 25px;
+  margin-top: 50px;
   @include flex-between;
 
   .line {
@@ -30,7 +30,7 @@ export default defineComponent({
     }
   }
 
-  p {
+  .text {
     padding: 0 20px;
     font-size: $fs_xs;
     color: $gray_1;

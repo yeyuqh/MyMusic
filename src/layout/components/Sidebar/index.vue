@@ -2,9 +2,9 @@
   <div class="sidebar">
     <div class="login-container"><Login /></div>
 
-    <nav class="sidebar-nav">
+    <nav class="sidebar__nav">
       <template v-for="nav of navs" :key="nav.name">
-        <router-link v-if="nav.meta && nav.meta.isNav" tag="a" :to="nav.path">
+        <router-link v-if="nav.meta && nav.meta.isNav" class="nav__item" tag="a" :to="nav.path">
           <Icon :name="nav.meta.icon" />{{ nav.meta.title }}
         </router-link>
       </template>
@@ -37,39 +37,38 @@ export default defineComponent({
   overflow-y: auto;
   width: $w-sidebar;
   height: 100%;
-
+  border-right: 1px solid;
   @include themeify() {
     background-color: Color(--sidebar-bgcolor);
+    border-color: Color(--border-color_00);
   }
 
-  .sidebar-nav {
-    a {
-      display: block;
-      padding: 8px 15px 8px 20px;
-      @include ellipsis;
+  .nav__item {
+    display: block;
+    padding: 8px 15px 8px 20px;
+    @include ellipsis;
+    @include themeify {
+      color: Color(--font-color_00);
+    }
+
+    &:hover {
       @include themeify {
-        color: Color(--font-color_00);
+        background-color: Color(--sidebar-hvcolor);
       }
+    }
 
-      &:hover {
-        @include themeify {
-          background-color: Color(--sidebar-hvcolor);
-        }
+    &.router-link-active {
+      color: $red;
+      @include themeify {
+        background-color: Color(--sidebar-atcolor);
       }
+    }
 
-      &.router-link-active {
-        color: $red;
-        @include themeify {
-          background-color: Color(--sidebar-atcolor);
-        }
-      }
-
-      #icon {
-        position: relative;
-        bottom: -1px;
-        padding-right: 5px;
-        font-size: $fs_l;
-      }
+    #icon {
+      position: relative;
+      bottom: -1px;
+      padding-right: 5px;
+      font-size: $fs_l;
     }
   }
 }

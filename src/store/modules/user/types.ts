@@ -28,12 +28,12 @@ export enum UserActionTypes {
 }
 
 export type UserActions = {
-  [UserActionTypes.LOGIN](context: UserActionsAugments, payload: { phone: number; password: string }): Promise<any>
-  [UserActionTypes.LOGOUT](context: UserActionsAugments): void
-  [UserActionTypes.GET_LOGIN_STATUS](context: UserActionsAugments): void
+  [UserActionTypes.LOGIN](context: UserActionAugments, payload: { phone: number; password: string }): Promise<any>
+  [UserActionTypes.LOGOUT](context: UserActionAugments): void
+  [UserActionTypes.GET_LOGIN_STATUS](context: UserActionAugments): void
 }
 
-type UserActionsAugments = {
+type UserActionAugments = {
   commit<K extends keyof UserMutations>(key: K, payload: Parameters<UserMutations[K]>[1]): ReturnType<UserMutations[K]>
 } & Omit<ActionContext<UserState, any>, 'commit'>
 

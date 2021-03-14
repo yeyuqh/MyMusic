@@ -1,24 +1,24 @@
 <template>
   <ul v-for="(colItems, colIndex) of columnList" :key="colIndex" class="cover-item-col">
-    <li v-for="(item, itemIndex) of colItems" :key="itemIndex" class="col-item">
-      <div class="cover"><el-image :src="utils.getImage(item.picUrl, '120y120')" lazy /></div>
+    <li v-for="(colItem, colItemIndex) of colItems" :key="colItemIndex" class="col__item">
+      <div class="cover"><el-image :src="utils.getImage(colItem.picUrl, '120y120')" lazy /></div>
 
-      <div class="col-item_r">
-        <span class="index">{{ formatterIndex(colIndex, itemIndex) }}</span>
+      <div class="col__item-r">
+        <span class="item__index">{{ formatterIndex(colIndex, colItemIndex) }}</span>
 
         <div class="song-detail">
-          <p class="name">
-            {{ item.name }}
-            <span v-if="item.song.alias.length" class="alias">{{ `(${item.song.alias[0]})` }}</span>
+          <p class="song-name">
+            {{ colItem.name }}
+            <span v-if="colItem.song.alias.length" class="song-alias">{{ `(${colItem.song.alias[0]})` }}</span>
           </p>
-          <p class="artist">
-            <template v-for="(artist, arIndex) of item.song.artists" :key="arIndex">
+          <p class="song-artist">
+            <template v-for="(artist, arIndex) of colItem.song.artists" :key="arIndex">
               <i v-if="arIndex > 0"> / </i><a href="javascript:;"> {{ artist.name }}</a>
             </template>
           </p>
         </div>
 
-        <button v-if="item.song.mvid" class="btn-video"><Icon name="video" /></button>
+        <button v-if="colItem.song.mvid" class="btn-video"><Icon name="video" /></button>
       </div>
     </li>
   </ul>
@@ -55,7 +55,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.col-item {
+.col__item {
   position: relative;
   padding: 10px 0;
   border-top: 1px solid;
@@ -69,6 +69,19 @@ export default defineComponent({
     border-bottom: 1px solid;
     @include themeify {
       border-color: Color(--main-hvcolor);
+    }
+  }
+
+  .cover {
+    overflow: hidden;
+    width: 65px;
+    height: 65px;
+    border-radius: $radius_2;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: $radius_2;
     }
   }
 
@@ -96,28 +109,15 @@ export default defineComponent({
       opacity: 1;
     }
   }
-
-  .cover {
-    overflow: hidden;
-    width: 65px;
-    height: 65px;
-    border-radius: $radius_2;
-
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: $radius_2;
-    }
-  }
 }
 
-.col-item_r {
+.col__item-r {
   box-sizing: border-box;
   flex: 1;
   padding: 0 15px;
   @include flex-between(row, flex-start);
 
-  .index {
+  .item__index {
     display: inline-block;
     width: 35px;
   }
@@ -127,20 +127,20 @@ export default defineComponent({
     padding-right: 15px;
     width: 80%;
 
-    > :nth-child(n + 1) {
+    > p {
       width: 100%;
       line-height: 2em;
       @include ellipsis-lines(1);
     }
-  }
 
-  .alias {
-    color: $gray_1;
-  }
+    .song-alias {
+      color: $gray_1;
+    }
 
-  .artist {
-    color: $gray_1;
-    font-size: $fs_xs;
+    .song-artist {
+      color: $gray_1;
+      font-size: $fs_xs;
+    }
   }
 
   .btn-video {

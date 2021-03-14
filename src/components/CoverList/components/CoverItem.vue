@@ -1,5 +1,5 @@
 <template>
-  <li class="corver-item">
+  <li class="cover-item" @click="goPlaylistDetail(id)">
     <div class="cover" :style="`padding-top: ${height}`">
       <el-image :src="utils.getImage(picUrl, imgSize)" lazy />
       <span v-if="playCount" class="info">
@@ -13,11 +13,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
 import { utils } from '@/utils'
 
 export default defineComponent({
   name: 'MVCard',
   props: {
+    id: { type: Number, default: 0 },
     picUrl: { type: String, required: true },
     imgSize: { type: String, default: null },
     name: { type: String, default: '' },
@@ -26,13 +28,21 @@ export default defineComponent({
   },
 
   setup() {
-    return { utils }
+    const router = useRouter()
+
+    function goPlaylistDetail(id: number) {
+      router.push({
+        path: '/playlist',
+        query: { id: id }
+      })
+    }
+    return { utils, goPlaylistDetail }
   }
 })
 </script>
 
 <style lang="scss" scoped>
-.corver-item {
+.cover-item {
   .cover {
     display: table;
     position: relative;
@@ -57,7 +67,7 @@ export default defineComponent({
       font-size: $fs_xs;
       line-height: 2em;
       color: $white;
-      background-color: rgba($color: #000000, $alpha: 0.2);
+      background-color: rgba(0, 0, 0, 0.2);
       border-radius: 0 $radius_2;
       backdrop-filter: blur(5px);
 
@@ -78,22 +88,6 @@ export default defineComponent({
     margin-top: 3px;
     font-size: 13px;
     @include ellipsis-lines;
-  }
-}
-
-@media (min-width: 1059px) and (max-width: 1224px) {
-  .grid-container.auto-fill {
-    .card:nth-last-child(-n + 2) {
-      display: none;
-    }
-  }
-}
-
-@media (min-width: 860px) and (max-width: 962px) {
-  .grid-container.auto-fill {
-    .card:nth-last-child(-n + 2) {
-      display: none;
-    }
   }
 }
 </style>

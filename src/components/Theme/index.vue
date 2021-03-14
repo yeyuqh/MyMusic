@@ -1,19 +1,21 @@
 <template>
   <div class="theme">
-    <el-popover placement="bottom" trigger="click" popper-class="theme-popper">
+    <el-popover :append-to-body="false" placement="bottom" trigger="click" popper-class="theme-popper">
       <template #reference>
         <button class="btn-theme"><Icon name="theme" /></button>
       </template>
 
-      <button
-        v-for="theme of themes"
-        :key="theme.name"
-        :class="['btn-theme_item', { active: theme.name === currentTheme }]"
-        @click="onClickThemeItemBtn(theme.name)"
-      >
-        <span :class="theme.name"></span>
-        <p>{{ theme.title }}</p>
-      </button>
+      <ul class="theme__list">
+        <li
+          v-for="theme of themes"
+          :key="theme.name"
+          :class="['theme__item', { 'is-active': theme.name === currentTheme }]"
+          @click="onClickThemeItem(theme.name)"
+        >
+          <i :class="['theme-icon', theme.name]"></i>
+          <p>{{ theme.title }}</p>
+        </li>
+      </ul>
     </el-popover>
   </div>
 </template>
@@ -21,7 +23,7 @@
 <script lang="ts">
 import { computed, defineComponent, nextTick, onMounted } from 'vue'
 import { useStore } from '@/store'
-import { AllMType } from '@/store/types'
+import { AllMTypes } from '@/store/types'
 import { ThemeTypes } from '@/store/modules/layout/types'
 
 export default defineComponent({
@@ -50,7 +52,7 @@ export default defineComponent({
       changeTheme(sysTheme)
     }
 
-    function onClickThemeItemBtn(theme: ThemeTypes) {
+    function onClickThemeItem(theme: ThemeTypes) {
       // auto
       if (theme === ThemeTypes.auto && !isAutoChange) {
         isAutoChange = true
@@ -58,25 +60,24 @@ export default defineComponent({
         setAutoChangeTheme()
 
         // lignt | dark
-      } else {
+      } else if (theme !== ThemeTypes.auto) {
         isAutoChange = false
         mql.removeEventListener('change', setAutoChangeTheme)
         changeTheme(theme)
       }
 
-      store.commit(AllMType.ChangeTheme, theme)
+      store.commit(AllMTypes.ChangeTheme, theme)
     }
 
     onMounted(() => {
-      onClickThemeItemBtn(currentTheme.value)
+      onClickThemeItem(currentTheme.value)
     })
 
     nextTick(() => {
-      const { body } = document
-      body.style.transition = 'background-color 0.3s'
+      document.body.style.transition = 'background-color 0.3s'
     })
 
-    return { themes, currentTheme, onClickThemeItemBtn }
+    return { themes, currentTheme, onClickThemeItem }
   }
 })
 </script>
@@ -93,17 +94,23 @@ export default defineComponent({
     }
   }
 }
+
+.theme__list {
+  width: 150px;
+  @include flex-between;
+}
 </style>
 
 <style lang="scss">
 .theme-popper {
-  @include flex-between;
-
-  .btn-theme_item {
+  .theme__item {
+    display: inline-block;
     width: 33.3%;
+    cursor: pointer;
     font-size: $fs_xs;
+    text-align: center;
 
-    span {
+    .theme-icon {
       box-sizing: border-box;
       display: inline-block;
       width: 25px;
@@ -130,10 +137,10 @@ export default defineComponent({
       }
     }
 
-    &.active {
+    &.is-active {
       color: $red;
 
-      span {
+      .theme-icon {
         border-color: $red;
       }
     }

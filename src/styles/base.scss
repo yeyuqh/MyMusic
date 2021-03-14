@@ -1,0 +1,24 @@
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.clearFt::after {
+  display: block;
+  clear: both;
+  content: '';
+  height: 0;
+}
+
+.not-allowed {
+  cursor: not-allowed !important;
+}
+
+.link {
+  @include themeify {
+    color: Color(--link-color);
+  }
+}

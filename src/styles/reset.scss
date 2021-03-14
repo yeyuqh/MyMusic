@@ -23,9 +23,8 @@ select {
 
 html,
 body {
-  letter-spacing: 0.5px;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif, Microsoft Yahei, Hiragino Sans GB, Heiti SC,
-    WenQuanYi Micro Hei;
+  font-family: 'SF Pro SC', 'SF Pro Display', 'SF Pro Icons', 'PingFang SC', 'Helvetica Neue', 'Helvetica', 'Arial',
+    sans-serif;
   user-select: none;
 }
 
@@ -36,6 +35,10 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+i {
+  font-style: normal;
 }
 
 ul,

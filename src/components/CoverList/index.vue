@@ -1,7 +1,7 @@
 <template>
   <div class="cover-list">
-    <div class="header">
-      <h2 v-if="title" class="title">{{ title }}</h2>
+    <div v-if="title" class="cover-list__header">
+      <h2 class="title">{{ title }}</h2>
       <a href="javascript:;" class="show-all">查看更多</a>
     </div>
 
@@ -44,7 +44,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .cover-list {
-  .header {
+  &__header {
     margin-bottom: 5px;
     @include flex-between;
 

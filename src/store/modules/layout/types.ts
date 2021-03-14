@@ -48,7 +48,7 @@ export enum LayoutActionTypes {}
 
 export type LayoutActions = {}
 
-type LayoutActionsAugments = {
+type LayoutActionAugments = {
   commit<K extends keyof LayoutMutations>(
     key: K,
     payload: Parameters<LayoutMutations[K]>[1]

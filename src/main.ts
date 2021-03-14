@@ -17,9 +17,9 @@ import '@/icons/iconfont'
 import Icon from '@/components/_base/Icon/index.vue'
 app.component('Icon', Icon)
 
-// Loding
-import Loding from '@/components/_base/Loading/index.vue'
-app.component('Loding', Loding)
+// Loading
+import Loading from '@/components/_base/Loading/index.vue'
+app.component('Loading', Loading)
 
 // Divider
 import Divider from '@/components/Divider/index.vue'
@@ -27,7 +27,10 @@ app.component('Divider', Divider)
 
 // element-plus 按需引入
 import '@/element+/el-custom.scss'
-import { components } from '@/element+'
+import { components, plugins } from '@/element+'
 components.forEach((component) => {
   app.component(component.name, component)
+})
+plugins.forEach((plugin) => {
+  app.use(plugin as any)
 })

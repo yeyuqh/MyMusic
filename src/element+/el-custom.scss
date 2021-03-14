@@ -1,6 +1,7 @@
 $--color-primary: $red;
 $--font-path: '~element-plus/lib/theme-chalk/fonts';
 
+@import '~element-plus/packages/theme-chalk/src/common/transition';
 @import '~element-plus/packages/theme-chalk/src/popover';
 @import '~element-plus/packages/theme-chalk/src/pagination'; // Popover 组件显示「箭头」需要引入此样式
 @import '~element-plus/packages/theme-chalk/src/dialog';
@@ -8,6 +9,11 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
 @import '~element-plus/packages/theme-chalk/src/button';
 @import '~element-plus/packages/theme-chalk/src/input';
 @import '~element-plus/packages/theme-chalk/src/image';
+@import '~element-plus/packages/theme-chalk/src/icon';
+@import '~element-plus/packages/theme-chalk/src/tabs';
+@import '~element-plus/packages/theme-chalk/src/table';
+@import '~element-plus/packages/theme-chalk/src/table-column';
+@import '~element-plus/packages/theme-chalk/src/slider';
 
 .el-popover {
   padding: 8px !important;
@@ -32,14 +38,6 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
 .el-divider {
   @include themeify {
     background-color: Color(--border-color_00);
-  }
-
-  .el-divider__text {
-    font-size: $fs_s;
-    background-color: transparent !important;
-    @include themeify {
-      color: Color(--font-color_03);
-    }
   }
 }
 
@@ -86,6 +84,20 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
   .el-input__suffix {
     @include themeify {
       color: Color(--font-color_00) !important;
+    }
+  }
+}
+
+.el-pagination {
+  padding: 50px 0 25px;
+  text-align: center;
+
+  .el-pager li,
+  .btn-prev,
+  .btn-next {
+    @include themeify {
+      color: Color(--font-color_00);
+      background-color: Color(--border-color_00);
     }
   }
 }

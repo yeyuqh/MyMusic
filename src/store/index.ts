@@ -7,15 +7,20 @@ import { LayoutModuleTypes, LayoutState } from './modules/layout/types'
 import user from './modules/user'
 import { UserModuleTypes, UserState } from './modules/user/types'
 
-type Store = LayoutModuleTypes & UserModuleTypes
+import player from './modules/player'
+import { PlayerModuleTypes, PlayerState } from './modules/player/types'
+
+type Store = LayoutModuleTypes & UserModuleTypes & PlayerModuleTypes
 type StoreModuleState = {
   layout: LayoutState
   user: UserState
+  player: PlayerState
 }
 
 const modules: ModuleTree<any> = {
   layout,
-  user
+  user,
+  player
 }
 
 // Vuex 状态持久化
@@ -25,6 +30,11 @@ const PRESERVE = createPersistedState({
   reducer: (state: StoreModuleState) => ({
     layout: {
       theme: state.layout.theme
+    },
+    player: {
+      playingSong: state.player.playingSong,
+      playqueue: state.player.playqueue,
+      history: state.player.history
     }
   })
 })

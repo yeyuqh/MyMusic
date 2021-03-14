@@ -6,11 +6,12 @@
       <CoverList v-if="playlists.length" title="推荐歌单">
         <template v-for="(playlist, index) of playlists" :key="index">
           <CoverItem
-            height="100%"
-            :pic-url="playlist.picUrl"
-            img-size="200y200"
+            :id="playlist.id"
             :name="playlist.name"
+            :pic-url="playlist.picUrl"
             :play-count="playlist.playCount"
+            height="100%"
+            img-size="200y200"
           />
         </template>
       </CoverList>
@@ -38,7 +39,7 @@
       </CoverList>
     </div>
 
-    <Loding v-if="loding" :top="50" />
+    <Loading v-if="Loading" :top="50" />
     <Divider v-else />
   </div>
 </template>
@@ -62,7 +63,7 @@ export default defineComponent({
 
   setup() {
     const state = shallowReactive({
-      loding: true,
+      Loading: true,
 
       banners: [] as BannerListTypes['banners'],
       playlists: [] as RcmdPlaylistsTypes['result'],
@@ -87,7 +88,7 @@ export default defineComponent({
       const { data: mvs } = await getRcmdMVs_()
       state.mvs = mvs.result
 
-      state.loding = false
+      state.Loading = false
     }
 
     onBeforeMount(() => {

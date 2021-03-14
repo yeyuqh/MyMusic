@@ -1,24 +1,24 @@
 <template>
   <div class="banner" @mouseover="stopAutoPlay" @mouseleave="setAutoPlay">
-    <ul class="banner-list">
-      <li v-for="(banner, index) of banners" :key="index" :class="['banner-item', bannerItemClass(index)]">
+    <ul class="banner__list">
+      <li v-for="(banner, index) of banners" :key="index" :class="['banner__item', bannerItemClass(index)]">
         <img :src="banner.imageUrl" alt="" />
-        <span :class="['banner-type', banner.titleColor]">{{ banner.typeTitle }}</span>
+        <span :class="['banner__item-type', `is-${banner.titleColor}`]">{{ banner.typeTitle }}</span>
       </li>
 
       <transition name="fade">
-        <div v-show="arrowVisible" class="arrow-wrap">
-          <button class="btn-arrow" @click="onClickPrevBtn"><Icon name="arrow-l" /></button>
-          <button class="btn-arrow" @click="onClickNextBtn"><Icon name="arrow-r" /></button>
+        <div v-show="arrowVisible" class="banner__arrow">
+          <button @click="onClickPrevBtn"><Icon name="arrow-l" /></button>
+          <button @click="onClickNextBtn"><Icon name="arrow-r" /></button>
         </div>
       </transition>
     </ul>
 
-    <div class="dots">
+    <div class="banner__dots">
       <span
         v-for="index of banners.length"
         :key="index"
-        :class="{ active: index - 1 === currentIndex }"
+        :class="['dots__item', { 'is-active': index - 1 === currentIndex }]"
         @mouseover="currentIndex = index - 1"
       ></span>
     </div>
@@ -56,11 +56,11 @@ export default defineComponent({
     function bannerItemClass(index: number) {
       switch (index) {
         case state.currentIndex:
-          return 'current '
+          return 'is-current '
         case prev.value:
-          return 'prev'
+          return 'is-prev'
         case next.value:
-          return 'next'
+          return 'is-next'
         default:
           return ''
       }
@@ -99,14 +99,14 @@ export default defineComponent({
 .banner {
   width: 100%;
 
-  .banner-list {
+  &__list {
     position: relative;
     width: 100%;
     height: 200px;
     transform-style: preserve-3d;
   }
 
-  .banner-item {
+  &__item {
     overflow: hidden;
     position: absolute;
     margin-left: 50%;
@@ -121,36 +121,18 @@ export default defineComponent({
       object-fit: cover;
     }
 
-    .banner-type {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      padding: 3px 8px;
-      font-size: $fs_xs;
-      color: $white;
-      border-radius: $radius_3 0;
-
-      &.red {
-        background-color: $red;
-      }
-
-      &.blue {
-        background-color: $blue;
-      }
-    }
-
-    &.current {
+    &.is-current {
       cursor: pointer;
       transform: translate3d(-50%, 0, 0) scale(1);
     }
 
-    &.prev {
+    &.is-prev {
       margin: 0;
       transform-origin: left;
       transform: translate3d(0, 0, -200px) scale(0.8);
     }
 
-    &.next {
+    &.is-next {
       margin: 0 100%;
       transform-origin: right;
       transform: translate3d(-100%, 0, -100px) scale(0.8);
@@ -170,26 +152,44 @@ export default defineComponent({
       transition: opacity 0.6s;
     }
 
-    &.current:after {
+    &.is-current::after {
       opacity: 0;
     }
   }
 
-  .arrow-wrap {
+  &__item-type {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 3px 8px;
+    font-size: $fs_xs;
+    color: $white;
+    border-radius: $radius_3 0;
+
+    &.is-red {
+      background-color: $red;
+    }
+
+    &.is-blue {
+      background-color: $blue;
+    }
+  }
+
+  &__arrow {
     height: 100%;
     @include flex-between;
 
-    .btn-arrow {
+    button {
       padding: 5px;
       font-size: $fs_l;
       color: $gray_1;
     }
   }
 
-  .dots {
+  &__dots {
     text-align: center;
 
-    span {
+    .dots__item {
       display: inline-block;
       margin: 0 5px;
       width: 6px;
@@ -198,7 +198,7 @@ export default defineComponent({
       background-color: $gray_1;
       border-radius: 50%;
 
-      &.active {
+      &.is-active {
         background-color: $red;
       }
     }

@@ -1,6 +1,6 @@
 <template>
   <div class="loading" :style="{ 'margin-top': `${top}px` }">
-    <svg class="svg-loading" width="60" height="12" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg">
+    <svg width="60" height="12" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg">
       <circle cx="15" cy="15" r="15">
         <animate
           attributeName="r"
@@ -87,7 +87,7 @@ export default defineComponent({
   text-align: center;
 }
 
-.svg-loading {
+.loading svg {
   fill: #d23c32;
 }
 </style>

@@ -1,6 +1,6 @@
 import { ActionTree } from 'vuex'
 import { UserActions, UserActionTypes, UserState } from './types'
-import { AllMType } from '@/store/types'
+import { AllMTypes } from '@/store/types'
 
 import { userLoginStatus_, userLogin_, userLogout_ } from '@/api/user'
 
@@ -14,7 +14,7 @@ const actions: ActionTree<UserState, any> & UserActions = {
     try {
       const { data: res } = await userLogin_(phone, password)
       if (res.code === LoginStatusTypes.LOGIN_SUCCESS) {
-        commit(AllMType.SaveUserInfo, res.profile)
+        commit(AllMTypes.SaveUserInfo, res.profile)
       } else if (res.code === LoginStatusTypes.PASSWORD_ERROR) {
         return Promise.reject('密码错误')
       }
@@ -25,11 +25,11 @@ const actions: ActionTree<UserState, any> & UserActions = {
   },
   async [UserActionTypes.LOGOUT]({ commit }) {
     await userLogout_()
-    commit(AllMType.SaveUserInfo, null)
+    commit(AllMTypes.SaveUserInfo, null)
   },
   async [UserActionTypes.GET_LOGIN_STATUS]({ commit }) {
     const { data: res } = await userLoginStatus_()
-    if (res.data.profile) commit(AllMType.SaveUserInfo, res.data.profile)
+    if (res.data.profile) commit(AllMTypes.SaveUserInfo, res.data.profile)
   }
 }
 

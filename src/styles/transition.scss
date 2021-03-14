@@ -28,3 +28,16 @@
 .right-leave-to {
   transform: translate(100%, 0) !important;
 }
+
+// music-detail
+.scale-enter-active,
+.scale-leave-active {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transform: scale(1) !important;
+  transform-origin: 0 100% !important;
+}
+
+.scale-enter-from,
+.scale-leave-to {
+  transform: scale(0) !important;
+}
