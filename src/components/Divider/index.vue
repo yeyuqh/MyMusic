@@ -26,7 +26,7 @@ export default defineComponent({
     flex: 1;
     height: 1px;
     @include themeify {
-      background-color: Color(--main-bdcolor);
+      background-color: Color(--border-color_00);
     }
   }
 

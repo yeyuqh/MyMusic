@@ -64,7 +64,6 @@ export default defineComponent({
   setup() {
     const state = shallowReactive({
       Loading: true,
-
       banners: [] as BannerListTypes['banners'],
       playlists: [] as RcmdPlaylistsTypes['result'],
       exclusiveVideos: [] as ExclusiveVideoTypes['result'],

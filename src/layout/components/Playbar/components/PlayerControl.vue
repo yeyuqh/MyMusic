@@ -237,7 +237,7 @@ export default defineComponent({
     &.btn-volume {
       margin: 0 7%;
       @include themeify {
-        color: Color(--font-color_00);
+        color: Color(--font-color_primary);
       }
     }
 
@@ -276,7 +276,7 @@ export default defineComponent({
       height: 2px;
       transition: background-color 0.3s;
       @include themeify {
-        background-color: Color(--border-color_01);
+        background-color: Color(--border-color_00);
       }
 
       &:after {

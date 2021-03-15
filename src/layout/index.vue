@@ -92,8 +92,8 @@ body {
   min-width: 768px;
   font-size: $fs_m;
   @include themeify(0) {
-    color: Color(--font-color_00);
-    background-color: Color(--main-bgcolor);
+    color: Color(--font-color_primary);
+    background-color: Color(--bg-color_main);
   }
 }
 

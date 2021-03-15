@@ -62,13 +62,13 @@ export default defineComponent({
   cursor: pointer;
   @include flex-between;
   @include themeify {
-    border-color: Color(--main-hvcolor);
+    border-color: Color(--bg-color_main_hover);
   }
 
   &:last-child {
     border-bottom: 1px solid;
     @include themeify {
-      border-color: Color(--main-hvcolor);
+      border-color: Color(--bg-color_main_hover);
     }
   }
 
@@ -100,7 +100,7 @@ export default defineComponent({
     border-radius: $radius_3;
     transition: opacity 0.3s !important;
     @include themeify {
-      background-color: Color(--main-hvcolor);
+      background-color: Color(--bg-color_main_hover);
     }
   }
 

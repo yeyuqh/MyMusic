@@ -76,7 +76,7 @@ export default defineComponent({
       left: 0;
       width: 100%;
       height: 100%;
-      font-size: 20px;
+      font-size: $fs_xl;
       color: $white;
       background-color: rgba(0, 0, 0, 0.3);
       opacity: 0;
@@ -94,7 +94,7 @@ export default defineComponent({
   flex: 1;
   overflow: hidden;
   margin-left: 10px;
-  font-size: 12px;
+  font-size: $fs_xs;
   color: $gray;
 
   .song-info {
@@ -102,7 +102,7 @@ export default defineComponent({
     margin-bottom: 5px;
     line-height: 20px;
     @include themeify {
-      color: Color(--font-color_00);
+      color: Color(--font-color_primary);
     }
 
     .song-name {
@@ -117,7 +117,7 @@ export default defineComponent({
       max-width: 40%;
       @include ellipsis;
       @include themeify {
-        color: Color(--font-color_03);
+        color: Color(--font-color_gray);
       }
     }
   }

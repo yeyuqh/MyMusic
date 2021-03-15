@@ -19,6 +19,6 @@
 
 .link {
   @include themeify {
-    color: Color(--link-color);
+    color: Color(--font-color_link);
   }
 }

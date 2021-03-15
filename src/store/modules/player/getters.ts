@@ -6,8 +6,6 @@ const getters: GetterTree<PlayerState, any> & PlayerGetters = {
   isPlaying: (state) => state.isPlaying,
   playingSong: (state) => state.playingSong,
   progress: (state) => state.progress,
-  playqueue: (state) => state.playqueue,
-  history: (state) => state.history,
   playmod: (state) => state.playMod,
 
   playingSongIndex: (state) => {
@@ -59,7 +57,10 @@ const getters: GetterTree<PlayerState, any> & PlayerGetters = {
     }
     const index = nextStartMap[state.playMod]()
     return state.playqueue[index]
-  }
+  },
+
+  playqueue: (state) => state.playqueue,
+  history: (state) => state.history.slice().reverse()
 }
 
 export default getters

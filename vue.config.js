@@ -6,7 +6,7 @@ module.exports = {
     port: 8080,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'http://api.music.yeyuqh.fun',
         changeOrigin: true,
         ws: false,
         pathRewrite: {
@@ -29,5 +29,6 @@ module.exports = {
         .options({ resources: ['./src/styles/variables.scss', './src/styles/mixin.scss'] })
         .end()
     })
-  }
+  },
+  productionSourceMap: false
 }

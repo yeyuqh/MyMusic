@@ -19,12 +19,12 @@
       <div class="song-info">
         <p class="song-artist">
           歌手：<template v-for="(artist, index) of playingSong.artists" :key="index">
-            <i v-if="index !== 0"> / </i><a href="javascript:;">{{ artist.name }}</a>
+            <i v-if="index !== 0"> / </i><a href="javascript:;" class="link">{{ artist.name }}</a>
           </template>
         </p>
 
         <p class="song-artist">
-          专辑：<a href="javascript:;">{{ playingSong.album.name }}</a>
+          专辑：<a href="javascript:;" class="link">{{ playingSong.album.name }}</a>
         </p>
       </div>
 
@@ -103,7 +103,7 @@ export default defineComponent({
           for (const tlrcRow of tlyricObj.lyric) {
             if (tlrcRow.state) continue
             if (lrcRow.s === tlrcRow.s && lrcRow.text !== '') {
-              lrcRow.text += `<br/><span style="font-size: 14px">${tlrcRow.text}</span>`
+              lrcRow.text += `<br/><span style="font-size: 16px">${tlrcRow.text}</span>`
               tlrcRow.state = true // 标记
             }
           }
@@ -119,7 +119,7 @@ export default defineComponent({
       if (!bs || !state.lyricObj || state.lyricObj.timeLine.indexOf(val) === -1) return
       state.currentLrcLineTime = val
 
-      bs.scrollToElement(`.lineT-${val}`, 600, true, -25, {
+      bs.scrollToElement(`.lineT-${val}`, 800, true, -25, {
         style: 'cubic-bezier(0.22, 1, 0.36, 1)',
         fn: (t: number) => 1 + --t * t * t * t * t
       })
@@ -151,7 +151,7 @@ export default defineComponent({
 .player {
   display: grid;
   grid-template-columns: 3fr 4fr;
-  column-gap: 25px;
+  column-gap: 50px;
   width: 100%;
   height: calc(100vh - #{2 * $h-topbar} - #{$h-playbar});
 }
@@ -179,12 +179,10 @@ export default defineComponent({
       box-sizing: border-box;
       max-width: 100%;
       max-height: 100%;
-      border-radius: 10px;
+      border-radius: $radius_5;
       vertical-align: middle;
       transform: translateX(-50%);
-      @include themeify {
-        box-shadow: 0px 20px 50px Color(--shadow-color);
-      }
+      box-shadow: 0px 20px 50px rgba(30, 30, 30, 0.5);
     }
 
     &.is-pause {
@@ -198,7 +196,6 @@ export default defineComponent({
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
-  margin-left: 50px;
   padding: 25px 0 0 0;
   user-select: text;
   @include flex-center(column, flex-start);
@@ -208,7 +205,7 @@ export default defineComponent({
     top: 0;
     right: 0;
     color: $gray;
-    font-size: 20px;
+    font-size: $fs_xl;
   }
 
   .title {
@@ -218,7 +215,7 @@ export default defineComponent({
       padding-right: 40px;
       @include ellipsis-lines;
       @include themeify {
-        color: Color(--font-color_02);
+        color: Color(--font-color_primary);
       }
     }
 
@@ -241,12 +238,6 @@ export default defineComponent({
       max-width: 50%;
       height: 25px;
       @include ellipsis;
-
-      a {
-        @include themeify {
-          color: Color(--link-color);
-        }
-      }
     }
   }
 
@@ -261,27 +252,27 @@ export default defineComponent({
     mask-image: linear-gradient(
       0deg,
       rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 1) 50%,
+      rgba(255, 255, 255, 1) 70%,
       rgba(255, 255, 255, 1) 95%,
       rgba(255, 255, 255, 0) 100%
     );
 
     li {
-      position: relative;
-      padding: 10px 25px 0 3px;
+      padding: 15px 25px 0 3px;
       font-size: $fs_xl;
+      line-height: 1.2em;
       color: transparent;
       transform: scale(0.85) translate3d(0, 0, 0);
       transform-origin: left;
-      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+      transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1) !important;
       @include themeify {
-        text-shadow: 0 0 4px Color(--font-color_03);
+        text-shadow: 0 0 4px Color(--font-color_gray);
       }
 
       &.is-current {
-        transform: scale(1) translate3d(0, 0, 0);
+        transform: scale(1);
         @include themeify {
-          color: Color(--font-color_02);
+          color: Color(--font-color_primary);
         }
       }
     }

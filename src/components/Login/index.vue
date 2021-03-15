@@ -99,7 +99,7 @@ export default defineComponent({
         })
     }
 
-    async function onClickLogoutBtn() {
+    function onClickLogoutBtn() {
       store.dispatch(AllATypes.LOGOUT)
     }
 
@@ -125,7 +125,7 @@ export default defineComponent({
 .login {
   display: flex;
   padding: 10px;
-  font-size: 16px;
+  font-size: $fs_xm;
 
   .profile-photo {
     overflow: hidden;
@@ -156,7 +156,7 @@ export default defineComponent({
       position: relative;
       top: -1px;
       padding-left: 5px;
-      font-size: 10px;
+      font-size: $fs_s;
     }
   }
 }
@@ -188,7 +188,7 @@ export default defineComponent({
 
     &:hover {
       @include themeify {
-        background-color: Color(--main-hvcolor);
+        background-color: Color(--bg-color_main_hover);
       }
     }
   }
@@ -197,7 +197,7 @@ export default defineComponent({
 .login__dialog {
   .el-dialog__title {
     @include themeify {
-      color: Color(--font-color_00);
+      color: Color(--font-color_primary);
     }
   }
 

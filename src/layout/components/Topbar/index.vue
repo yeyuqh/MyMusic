@@ -55,7 +55,7 @@ export default defineComponent({
   border-bottom: 1px solid;
   backdrop-filter: blur(15px);
   @include themeify {
-    background-color: Color(--topbar-bgcolor);
+    background-color: Color(--bg-color_blur);
     border-color: Color(--border-color_00);
   }
 
@@ -70,7 +70,7 @@ export default defineComponent({
     margin-left: $w-sidebar;
     line-height: $h-topbar;
     @include themeify {
-      color: Color(--font-color_03);
+      color: Color(--font-color_gray);
     }
 
     &.small {
@@ -87,14 +87,14 @@ export default defineComponent({
 
     &:hover {
       @include themeify {
-        color: Color(--font-color_02);
+        color: Color(--font-color_primary);
       }
     }
 
     &.router-link-active {
       font-weight: bold;
       @include themeify {
-        color: Color(--font-color_02);
+        color: Color(--font-color_primary);
       }
     }
   }
@@ -103,7 +103,7 @@ export default defineComponent({
 @supports not (backdrop-filter: blur()) {
   .topbar {
     @include themeify {
-      background-color: Color(--sidebar-bgcolor);
+      background-color: Color(--bg-color_sidebar);
     }
   }
 }

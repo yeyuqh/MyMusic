@@ -1,26 +1,32 @@
 <template>
   <div class="playqueue">
-    <div class="tabs">
-      <div class="tabs-nav">
-        <button v-for="tab in tabs" :key="tab" :class="{ active: tab === currentTab }" @click="onClickTabBtn(tab)">
+    <div class="playqueue__header">
+      <div class="header__tabs">
+        <button
+          v-for="tab in tabs"
+          :key="tab"
+          :class="['btn-tab', { active: tab === currentTab }]"
+          @click="onClickTabBtn(tab)"
+        >
           {{ tab }}
         </button>
       </div>
-      <div class="tabs-info">
+      <div class="header__info">
         <span class="count">{{ songlist.length }}首歌曲</span>
-        <button @click="onClickClearBtn"><Icon name="del" /> 清空</button>
+        <button class="btn-clear" @click="onClickClearBtn"><Icon name="del" /> 清空</button>
       </div>
     </div>
 
-    <div v-infinite-scroll="handleSonglistLoad" class="songlist-container" :infinite-scroll-distance="200">
-      <ul class="songlist">
-        <li v-for="song in SonglistLoad" :key="song.id" class="songlist-item">
+    <div v-infinite-scroll="handleSonglistLoad" class="songlist-wrap" :infinite-scroll-distance="200">
+      <ul class="songlist-container">
+        <li v-for="song in SonglistLoad" :key="song.id" class="songlist__item">
           <div class="cover" @mouseenter="showRemoveBtn(song.id)" @mouseleave="showRemoveBtn(-1)">
-            <img :src="`${song.album.picUrl}?param=50y50`" />
+            <img :src="utils.getImage(song.album.picUrl, '100y100')" />
             <div v-if="playingSong && song.id === playingSong.id" class="playing-icon-wrap">
               <PlayingIcon :is-playing="isPlaying" :audio-svg="true" />
             </div>
 
+            <!-- 移除单首歌曲按钮 -->
             <transition name="fade">
               <button
                 v-if="
@@ -35,7 +41,7 @@
             </transition>
           </div>
 
-          <div class="info" @dblclick="onDblclickSong(song)">
+          <div class="song-info" @dblclick="onDblclickSong(song)">
             <div class="info-l">
               <div class="name">{{ song.name }}</div>
               <div class="artist">
@@ -58,12 +64,11 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs } from 'vue'
-
-import PlayingIcon from '@/components/PlayingIcon/index.vue'
-
 import { useStore } from '@/store'
 import { AllMTypes } from '@/store/types'
 import { SongInfoTypes } from '@/store/modules/player/types'
+
+import PlayingIcon from '@/components/PlayingIcon/index.vue'
 
 import { utils } from '@/utils/index'
 
@@ -87,6 +92,8 @@ export default defineComponent({
       if (state.currentTab === '播放队列') return store.getters.playqueue
       else return store.getters.history
     })
+
+    // 列表按需加载
     const SonglistLoad = computed(() => {
       return songlist.value.slice(0, state.pageNum * 10)
     })
@@ -125,8 +132,8 @@ export default defineComponent({
     }
 
     return {
-      ...toRefs(state),
       utils,
+      ...toRefs(state),
       showRemoveBtn,
       songlist,
       SonglistLoad,
@@ -149,154 +156,166 @@ export default defineComponent({
   border-top-left-radius: $radius_3;
   @include flex-between(column);
   @include themeify {
-    background-color: Color(--list-box-bgcolor);
+    background-color: Color(--bg-color_aside);
     box-shadow: -5px 0 8px -5px rgba(30, 30, 30, 0.5);
   }
 
-  .tabs {
+  &__header {
     box-sizing: border-box;
     padding: 15px 15px 0 15px;
     width: 100%;
 
-    .tabs-nav {
-      margin: 0 auto;
+    .header__tabs {
       overflow: hidden;
+      margin: 0 auto;
       width: 200px;
       height: 30px;
       text-align: center;
       border: 1px solid $gray;
       border-radius: 30px;
 
-      button {
+      .btn-tab {
         width: 50%;
         height: 100%;
         border-radius: 30px;
 
         &.active {
-          background-color: $gray_1;
           color: $white;
+          background-color: $gray_1;
         }
       }
     }
 
-    .tabs-info {
+    .header__info {
       margin-top: 15px;
       border-bottom: 1px solid $gray;
       @include flex-between();
 
       .count {
-        font-size: 12px;
+        font-size: $fs_xs;
       }
+    }
+  }
+}
 
-      button {
-        font-size: inherit;
+.songlist-wrap {
+  box-sizing: border-box;
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 15px 15px 15px;
+  width: 100%;
+  @include scrollbar-style();
+
+  .songlist__item {
+    display: flex;
+    position: relative;
+    z-index: 0;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: -1px;
+      left: -5px;
+      z-index: -1;
+      padding: 0 5px;
+      width: 100%;
+      height: calc(100% + 1px);
+      opacity: 0;
+      border-radius: $radius_1;
+      transition: opacity 0.3s !important;
+      @include themeify {
+        background-color: Color(--bg-color_aside_hover);
+      }
+    }
+
+    &:hover {
+      &::after {
+        opacity: 1;
       }
     }
   }
 
-  .songlist-container {
-    box-sizing: border-box;
+  .cover {
+    overflow: hidden;
+    position: relative;
+    bottom: -3px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: $radius_1;
+    @include themeify {
+      border: 1px solid Color(--bg-color_aside_hover);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .playing-icon-wrap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(20, 20, 20, 0.3);
+      backdrop-filter: blur(5px);
+
+      .playing-icon {
+        transform: scale(0.5);
+      }
+    }
+
+    .btn-remove {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      font-size: $fs_xm;
+      color: $white;
+      background-color: rgba(20, 20, 20, 0.3);
+      backdrop-filter: blur(5px);
+    }
+  }
+
+  .song-info {
     flex: 1;
-    padding: 0 15px 15px 15px;
-    overflow-y: auto;
-    width: 100%;
-    @include scrollbar-style();
-
-    .songlist-item {
-      display: flex;
+    overflow: hidden;
+    margin-left: 5px;
+    padding: 5px;
+    font-size: $fs_s;
+    @include flex-between;
+    @include themeify {
+      border-bottom: 1px solid Color(--bg-color_aside_hover);
     }
+  }
 
-    .cover {
-      position: relative;
-      bottom: -3px;
-      width: 40px;
-      height: 40px;
-      border-radius: $radius_1;
-      font-size: 0;
-      line-height: 40px;
+  .info-l {
+    width: 80%;
+
+    .name {
+      width: 100%;
+      font-size: $fs_m;
+      line-height: 1.5em;
+      @include ellipsis;
       @include themeify {
-        border: 1px solid Color(--border-color_03);
-      }
-
-      img {
-        display: block;
-        box-sizing: border-box;
-        width: 100%;
-        height: 100%;
-        border-radius: 3px;
-      }
-
-      .playing-icon-wrap {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(20, 20, 20, 0.3);
-        backdrop-filter: blur(5px);
-
-        .icon {
-          transform: scale(0.5);
-        }
-      }
-
-      .btn-remove {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        font-size: 16px;
-        color: $white;
-        background-color: rgba(20, 20, 20, 0.3);
-        backdrop-filter: blur(5px);
+        color: Color(--font-color_primary);
       }
     }
 
-    .info {
-      flex: 1;
-      overflow: hidden;
-      padding: 5px;
-      margin-left: 5px;
-      font-size: 12px;
-      @include flex-between;
-      @include themeify {
-        border-bottom: 1px solid Color(--border-color_02);
-      }
-
-      &:hover {
-        @include themeify {
-          background-color: Color(--queue-listhover-bgcolor);
-        }
-      }
+    .artist {
+      line-height: 18px;
+      color: $gray_1;
+      @include ellipsis;
     }
+  }
 
-    .info-l {
-      width: 80%;
-
-      .name {
-        width: 100%;
-        font-size: 14px;
-        line-height: 21px;
-        @include ellipsis;
-        @include themeify {
-          color: Color(--font-color_00);
-        }
-      }
-
-      .artist {
-        line-height: 18px;
-        color: $gray;
-        @include ellipsis;
-      }
-    }
-
-    .info-r {
-      position: relative;
-      display: flex;
-      padding-right: 5px;
-      color: $gray;
-    }
+  .info-r {
+    display: flex;
+    padding-right: 5px;
+    color: $gray_1;
   }
 }
 </style>

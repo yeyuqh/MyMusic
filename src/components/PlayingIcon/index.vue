@@ -1,5 +1,5 @@
 <template>
-  <div class="playing-icon icon">
+  <div class="playing-icon">
     <div v-if="!isPlaying" class="state-stop">
       <svg
         t="1608043409931"
@@ -89,15 +89,8 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'PlayingIcon',
   props: {
-    isPlaying: {
-      type: Boolean,
-      default: false
-    },
-
-    audioSvg: {
-      type: Boolean,
-      default: false
-    }
+    isPlaying: { type: Boolean, default: false },
+    audioSvg: { type: Boolean, default: false }
   }
 })
 </script>

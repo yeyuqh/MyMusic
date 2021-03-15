@@ -8,7 +8,7 @@
       <h2 class="title"><span class="type">歌单</span>{{ data.name }}</h2>
 
       <p class="creator">
-        <a href="javascript:;" class="link">
+        <a href="javascript:;">
           <span class="profile-photo">
             <img :src="utils.getImage(data.creator.avatarUrl, '400y400')" alt="" />
           </span>
@@ -65,7 +65,6 @@
 
 <script lang="ts">
 import { defineComponent, nextTick, PropType, reactive, toRefs } from 'vue'
-
 import { utils } from '@/utils'
 
 import { PlaylistDetailTypes } from '@/api/playlist'
@@ -184,7 +183,7 @@ export default defineComponent({
     position: relative;
     padding-right: 20px;
     height: 22px;
-    white-space: pre-line; // 保留原文本格式
+    white-space: pre-line;
     user-select: text;
     @include ellipsis-lines(1);
 
@@ -209,7 +208,7 @@ export default defineComponent({
     right: 0;
     cursor: pointer;
     user-select: none;
-    font-size: 10px;
+    font-size: $fs_s;
     color: $gray;
 
     &.is-open {
@@ -223,8 +222,8 @@ export default defineComponent({
 .playlist-header {
   .el-btn-color {
     @include themeify {
-      color: Color(--font-color_00);
-      background-color: Color(--main-bgcolor);
+      color: Color(--font-color_primary);
+      background-color: Color(--bg-color_main);
       border-color: Color(--border-color_00);
     }
   }

@@ -49,7 +49,7 @@ export default {
   height: 100%;
   @include scrollbar-hide;
   @include themeify {
-    background-color: Color(--main-bgcolor);
+    background-color: Color(--bg-color_main);
   }
 
   .background-img {
@@ -76,7 +76,7 @@ export default {
     width: 100%;
     height: calc(100% - #{$h-playbar - 2px});
     @include themeify {
-      background-color: Color(--music-detail-bgcolor);
+      background-color: Color(--bg-color_blur);
     }
   }
 }

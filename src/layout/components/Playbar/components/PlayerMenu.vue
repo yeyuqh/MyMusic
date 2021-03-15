@@ -47,60 +47,16 @@ export default defineComponent({
 .player-menu {
   padding-right: 15px;
   @include flex-between(row, flex-end);
-  @include themeify {
-    color: Color(--font-color_01);
-  }
 
   .btn-playqueue {
-    font-size: 18px;
-  }
-
-  .volumebar-wrap {
-    margin-right: 10%;
-    width: 100px;
-    @include flex-between();
-
-    .btn-volume {
-      margin: 0;
-      font-size: 18px;
-    }
-
-    .el-slider {
-      margin-left: 12px;
-      width: 100%;
-    }
+    font-size: $fs_l;
   }
 
   .playqueue-container {
     position: fixed;
     top: 50px;
     right: 0;
-    height: calc(100% - 112px);
-  }
-}
-</style>
-
-<style lang="scss">
-.volumebar-wrap {
-  .el-slider__runway {
-    height: 4px;
-
-    .el-slider__bar {
-      height: 4px;
-    }
-
-    .el-slider__button-wrapper {
-      top: -7px;
-      width: 12px;
-      height: 12px;
-
-      .el-slider__button {
-        width: 100%;
-        height: 100%;
-        border: none;
-        background-color: $red;
-      }
-    }
+    height: calc(100% - #{$h-topbar} - #{$h-playbar});
   }
 }
 </style>

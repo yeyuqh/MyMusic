@@ -25,9 +25,10 @@
     </div>
 
     <div class="playlist-container">
-      <CoverList>
+      <CoverList v-if="playlists.length">
         <template v-for="(playlist, index) of playlists" :key="index">
           <CoverItem
+            :id="playlist.id"
             :name="playlist.name"
             :pic-url="playlist.coverImgUrl"
             :play-count="playlist.playCount"
@@ -65,7 +66,6 @@ export default defineComponent({
   setup() {
     const state = shallowReactive({
       loading: true,
-
       currentCat: '全部歌单',
       catlistSub: [] as PlaylistCatlistTypes['sub'],
       playlists: [] as PlaylistTypes['playlists'],
@@ -89,6 +89,7 @@ export default defineComponent({
     }
 
     async function getPlaylists() {
+      state.loading = true
       const { data: res } = await getPlaylists_(state.currentCat, 50, 60).finally(() => {
         state.loading = false
       })
@@ -96,7 +97,7 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
-      getPlaylistCatlist(), getPlaylists(), getHQPlaylists(), console.log(state.HQPlaylists)
+      getPlaylistCatlist(), getPlaylists(), getHQPlaylists()
     })
 
     watch(

@@ -5,9 +5,9 @@ const state: PlayerState = {
   isPlaying: false,
   playingSong: null,
   progress: 0,
+  playMod: PlayModTypes.loop,
   playqueue: [],
-  history: [],
-  playMod: PlayModTypes.loop
+  history: []
 }
 
 export default state

@@ -20,15 +20,15 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
   width: auto !important;
   border-radius: $radius_2 !important;
   @include themeify {
-    color: Color(--font-color_00);
-    background-color: Color(--main-bgcolor);
+    color: Color(--font-color_primary);
+    background-color: Color(--bg-color_main);
     border-color: Color(--border-color_00);
   }
 
   .el-popper__arrow {
     &:before {
       @include themeify {
-        background-color: Color(--main-bgcolor);
+        background-color: Color(--bg-color_main);
         border-color: Color(--border-color_00);
       }
     }
@@ -44,14 +44,14 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
 .el-overlay {
   backdrop-filter: blur(15px);
   @include themeify {
-    background-color: Color(--overlay-bgcolor);
+    background-color: Color(--bg-color_blur_overlay);
   }
 }
 
 .el-dialog {
   border-radius: $radius_3;
   @include themeify {
-    background-color: Color(--main-bgcolor);
+    background-color: Color(--bg-color_main);
   }
 }
 
@@ -59,8 +59,8 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
   .el-input__inner {
     background-color: transparent;
     @include themeify {
-      color: Color(--font-color_00);
-      border-color: Color(--border-color_03);
+      color: Color(--font-color_primary);
+      border-color: Color(--border-color_00);
     }
 
     &:focus {
@@ -83,7 +83,7 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
   .el-input__prefix,
   .el-input__suffix {
     @include themeify {
-      color: Color(--font-color_00) !important;
+      color: Color(--font-color_primary) !important;
     }
   }
 }
@@ -96,7 +96,7 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
   .btn-prev,
   .btn-next {
     @include themeify {
-      color: Color(--font-color_00);
+      color: Color(--font-color_primary);
       background-color: Color(--border-color_00);
     }
   }

@@ -89,7 +89,7 @@ export default defineComponent({
 
     &:hover {
       @include themeify {
-        color: Color(--font-color_03);
+        color: Color(--font-color_gray);
       }
     }
   }

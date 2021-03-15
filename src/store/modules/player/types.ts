@@ -6,9 +6,9 @@ export type PlayerState = {
   isPlaying: boolean
   playingSong: SongInfoTypes | null // 当前播放的歌曲
   progress: number
+  playMod: PlayModTypes
   playqueue: SongInfoTypes[]
   history: SongInfoTypes[]
-  playMod: PlayModTypes
 }
 export type SongInfoTypes = {
   id: number
@@ -39,12 +39,12 @@ export type PlayerGetters<S = PlayerState> = {
   isPlaying(state: S): boolean
   playingSong(state: S): SongInfoTypes | null
   progress(state: S): number
-  playqueue(state: S): SongInfoTypes[]
-  history(state: S): SongInfoTypes[]
-  playmod(state: S): PlayModTypes
   playingSongIndex(state: S): number
   nextSong(state: S): SongInfoTypes
   prevSong(state: S): SongInfoTypes
+  playmod(state: S): PlayModTypes
+  playqueue(state: S): SongInfoTypes[]
+  history(state: S): SongInfoTypes[]
 }
 
 //* PlayerMutationTypes
@@ -70,7 +70,6 @@ export type PlayerMutations<S = PlayerState> = {
   [PlayerMutationTypes.OpenPlayerDetail](state: S): void
   [PlayerMutationTypes.ChangePlayState](state: S, payload: boolean): void
   [PlayerMutationTypes.AddPlayingSong](state: S, playload: SongInfoTypes): void
-
   [PlayerMutationTypes.ClearPlayqueue](state: S): void
   [PlayerMutationTypes.ClearHistory](state: S): void
   [PlayerMutationTypes.ChangePlayMod](state: S): void

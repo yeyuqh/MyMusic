@@ -39,7 +39,7 @@ export default defineComponent({
   height: 100%;
   border-right: 1px solid;
   @include themeify() {
-    background-color: Color(--sidebar-bgcolor);
+    background-color: Color(--bg-color_sidebar);
     border-color: Color(--border-color_00);
   }
 
@@ -48,19 +48,20 @@ export default defineComponent({
     padding: 8px 15px 8px 20px;
     @include ellipsis;
     @include themeify {
-      color: Color(--font-color_00);
+      color: Color(--font-color_primary);
     }
 
     &:hover {
+      text-decoration: none;
       @include themeify {
-        background-color: Color(--sidebar-hvcolor);
+        background-color: Color(--bg-color_sidebar_hover);
       }
     }
 
     &.router-link-active {
       color: $red;
       @include themeify {
-        background-color: Color(--sidebar-atcolor);
+        background-color: Color(--bg-color_sidebar_active);
       }
     }
 

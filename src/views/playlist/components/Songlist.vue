@@ -113,12 +113,12 @@ export default defineComponent({
   .songlist__table {
     color: $gray_1 !important;
     @include themeify {
-      color: Color(--font-color_00);
+      color: Color(--font-color_primary);
     }
 
     th {
       @include themeify {
-        background-color: Color(--eltable-striped-bgcolor);
+        background-color: Color(--bg-color_main_striped);
       }
     }
 
@@ -129,12 +129,12 @@ export default defineComponent({
 
   .el-table__row {
     @include themeify {
-      background-color: Color(--main-bgcolor);
+      background-color: Color(--bg-color_main);
     }
 
     &.el-table__row--striped {
       @include themeify {
-        background-color: Color(--eltable-striped-bgcolor);
+        background-color: Color(--bg-color_main_striped);
       }
     }
 
@@ -144,7 +144,7 @@ export default defineComponent({
 
       &:nth-child(3) {
         @include themeify {
-          color: Color(--font-color_00);
+          color: Color(--font-color_primary);
         }
       }
     }
@@ -160,13 +160,13 @@ export default defineComponent({
 
   .el-table--enable-row-hover .el-table__body tr:hover {
     @include themeify {
-      background-color: Color(--eltable-listhover-bgcolor) !important;
+      background-color: Color(--bg-color_main_hover) !important;
     }
   }
 
   .el-table__empty-block {
     @include themeify {
-      background-color: Color(--main-bgcolor);
+      background-color: Color(--bg-color_main);
     }
   }
 }

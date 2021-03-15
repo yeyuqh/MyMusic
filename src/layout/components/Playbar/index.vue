@@ -42,7 +42,7 @@ export default defineComponent({
     height: 100%;
     backdrop-filter: blur(15px);
     @include themeify {
-      background-color: Color(--playbar-bgcolor);
+      background-color: Color(--bg-color_blur);
       border-color: Color(--border-color_00);
     }
   }
@@ -63,7 +63,7 @@ export default defineComponent({
 @supports not (backdrop-filter: blur()) {
   .playbar {
     @include themeify {
-      background-color: Color(--sidebar-bgcolor);
+      background-color: Color(--bg-color_sidebar);
     }
   }
 }

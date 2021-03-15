@@ -109,7 +109,7 @@ export default defineComponent({
     font-weight: normal;
     line-height: 30px;
     @include themeify {
-      color: Color(--font-color_00);
+      color: Color(--font-color_primary);
     }
 
     .count {
