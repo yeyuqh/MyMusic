@@ -25,12 +25,18 @@ const actions: ActionTree<PlayerState, any> & PlayerActions = {
     let isPlaying = false
 
     for (let i = 0, len = privs.length; i < len; i++) {
-      if (len === 1 && (privs[i].fee === 1 || privs[i].fee === 4)) {
+      if (len === 1 && privs[i].fee === 4) {
         alert('付费歌曲')
         return
+      } else if (len === 1 && privs[i].fee === 1) {
+        alert('VIP歌曲')
+        return
+      } else if (len === 1 && privs[i].st === 200) {
+        alert('暂时没有版权')
+        return
       } else {
-        if (privs[i].fee === 1 || privs[i].fee === 4) continue
-
+        if (privs[i].fee === 1 || privs[i].fee === 4 || privs[i].st === 200) continue
+        state.playqueue.length = 0 // 清空播放队列
         // eslint-disable-next-line object-curly-spacing
         const songInfo = { album: {} } as SongInfoTypes
 

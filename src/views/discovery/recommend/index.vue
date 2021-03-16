@@ -84,10 +84,8 @@ export default defineComponent({
       const { data: newSongs } = await getRcmdNewSongs_()
       state.newSongs = newSongs.result
 
-      const { data: mvs } = await getRcmdMVs_()
+      const { data: mvs } = await getRcmdMVs_().finally(() => (state.Loading = false))
       state.mvs = mvs.result
-
-      state.Loading = false
     }
 
     onBeforeMount(() => {

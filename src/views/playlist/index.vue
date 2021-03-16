@@ -1,6 +1,6 @@
 <template>
   <div v-if="detail.name" class="playlist">
-    <div class="header-container"><PlaylistHeader :data="detail" /></div>
+    <div class="header-container"><Header :ids="songIds" :data="detail" /></div>
 
     <div class="tabs-container">
       <el-tabs v-model="defTab" @tab-click="onClickTab">
@@ -15,25 +15,27 @@
       </el-tabs>
     </div>
 
-    <div class="songlist-container"><Songlist :songlist="songlist" /></div>
+    <div class="tabs__component-container">
+      <component :is="currentTab" :id="id" :songlist="songlist" :type="CommentRequestTypes.playlist" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onBeforeMount, shallowReactive, toRefs } from 'vue'
 import { useRoute } from 'vue-router'
-
-import PlaylistHeader from './components/PlaylistHeader.vue'
-import Songlist from './components/Songlist.vue'
-
 import { utils } from '@/utils'
+
+import Header from './components/Header.vue'
+import Songlist from './components/Songlist.vue'
+import Comment, { CommentRequestTypes } from '@/components/Comment/index.vue'
 
 import { getPlaylistDetail_, PlaylistDetailTypes } from '@/api/playlist'
 import { getSongsDetail_, SongsDetailTypes } from '@/api/song'
 
 export default defineComponent({
   name: 'PlaylistDetail',
-  components: { PlaylistHeader, Songlist },
+  components: { Header, Songlist, Comment },
 
   setup() {
     const route = useRoute()
@@ -78,7 +80,7 @@ export default defineComponent({
       getPlaylistDetail()
     })
 
-    return { utils, ...toRefs(state), tabs, defTab, onClickTab }
+    return { utils, CommentRequestTypes, ...toRefs(state), tabs, defTab, onClickTab }
   }
 })
 </script>
@@ -86,6 +88,10 @@ export default defineComponent({
 <style lang="scss" scoped>
 .tabs-container {
   margin-top: 25px;
+}
+
+.tabs__component-container {
+  margin-top: 20px;
 }
 </style>
 

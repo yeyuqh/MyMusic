@@ -25,7 +25,7 @@
     </div>
 
     <div class="playlist-container">
-      <CoverList v-if="playlists.length">
+      <CoverList v-show="playlists.length">
         <template v-for="(playlist, index) of playlists" :key="index">
           <CoverItem
             :id="playlist.id"
@@ -40,7 +40,16 @@
     </div>
 
     <Loading v-if="loading" />
-    <el-pagination v-else small background layout="prev, pager, next" :total="1000" />
+    <el-pagination
+      v-else
+      small
+      background
+      layout="prev, pager, next"
+      :total="total"
+      :page-size="pageSize"
+      :current-page="pageNum"
+      @current-change="onClickPageNumBtn"
+    />
   </div>
 </template>
 
@@ -69,7 +78,10 @@ export default defineComponent({
       currentCat: '全部歌单',
       catlistSub: [] as PlaylistCatlistTypes['sub'],
       playlists: [] as PlaylistTypes['playlists'],
-      HQPlaylists: {} as HQPlaylistTypes['playlists'][0]
+      HQPlaylists: {} as HQPlaylistTypes['playlists'][0],
+      total: 0,
+      pageNum: 1,
+      pageSize: 60
     })
 
     const defaultTabs = ['全部歌单', '华语', '流行', '经典', '民谣', '古风', '乡村', '古典', '民族', '影视原声']
@@ -89,11 +101,19 @@ export default defineComponent({
     }
 
     async function getPlaylists() {
+      state.playlists.length = 0
       state.loading = true
-      const { data: res } = await getPlaylists_(state.currentCat, 50, 60).finally(() => {
+      const { data: res } = await getPlaylists_(state.currentCat, state.pageNum, state.pageSize).finally(() => {
         state.loading = false
       })
+
       state.playlists = res.playlists
+      state.total = res.total
+    }
+
+    function onClickPageNumBtn(pageNum: number) {
+      state.pageNum = pageNum
+      getPlaylists()
     }
 
     onBeforeMount(() => {
@@ -109,7 +129,7 @@ export default defineComponent({
       }
     )
 
-    return { ...toRefs(state), defaultTabs, onClickTab }
+    return { ...toRefs(state), defaultTabs, onClickTab, onClickPageNumBtn }
   }
 })
 </script>
@@ -191,5 +211,9 @@ export default defineComponent({
       margin-left: 0;
     }
   }
+}
+
+.playlist-container {
+  margin-bottom: 25px;
 }
 </style>

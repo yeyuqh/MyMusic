@@ -38,6 +38,10 @@
               v-html="lrcLine.text"
             ></li>
           </template>
+          <div class="no-lrc">
+            <p v-if="lyricObj && !lyricObj.lyric.length" class="no-lrc">纯音乐，敬请欣赏！</p>
+            <p v-if="noLyric">暂时还没有歌词！</p>
+          </div>
         </ul>
       </div>
     </div>
@@ -64,7 +68,8 @@ export default defineComponent({
     let bs: BScrollInstance
 
     const state = shallowReactive({
-      lyricObj: {} as LyricTypes | null,
+      lyricObj: null as LyricTypes | null,
+      noLyric: false,
       currentLrcLineTime: 0
     })
 
@@ -92,24 +97,32 @@ export default defineComponent({
     async function getSongLyric(id: number) {
       state.lyricObj = null // 清空歌词
 
-      const { data: res } = await getSongLyric_(id)
-      state.lyricObj = formatLyric(res.lrc.lyric) // 解析歌词
+      try {
+        const { data: res } = await getSongLyric_(id)
+        state.noLyric = false
+        state.lyricObj = formatLyric(res.lrc.lyric) // 解析歌词
 
-      // 判断歌词是否有翻译
-      if (res.tlyric.lyric) {
-        const tlyricObj = formatLyric(res.tlyric.lyric)
+        // 判断歌词是否有翻译
+        if (res.tlyric.lyric) {
+          const tlyricObj = formatLyric(res.tlyric.lyric)
 
-        for (const lrcRow of state.lyricObj.lyric) {
-          for (const tlrcRow of tlyricObj.lyric) {
-            if (tlrcRow.state) continue
-            if (lrcRow.s === tlrcRow.s && lrcRow.text !== '') {
-              lrcRow.text += `<br/><span style="font-size: 16px">${tlrcRow.text}</span>`
-              tlrcRow.state = true // 标记
+          for (const lrcRow of state.lyricObj.lyric) {
+            for (const tlrcRow of tlyricObj.lyric) {
+              if (tlrcRow.flag) continue
+              if (lrcRow.s === tlrcRow.s && lrcRow.text !== '') {
+                lrcRow.text += `<br/><span class="tlrc">${tlrcRow.text}</span>`
+                tlrcRow.flag = true // 标记
+              }
             }
           }
         }
+      } catch (err) {
+        state.noLyric = true
+        console.log(err)
       }
+
       // 歌词获取完成且 DOM 更新后初始化 better-scroll
+      if (bs) bs.destroy()
       nextTick(() => initBS())
     }
 
@@ -119,7 +132,7 @@ export default defineComponent({
       if (!bs || !state.lyricObj || state.lyricObj.timeLine.indexOf(val) === -1) return
       state.currentLrcLineTime = val
 
-      bs.scrollToElement(`.lineT-${val}`, 800, true, -25, {
+      bs.scrollToElement(`.lineT-${val}`, 800, true, -30, {
         style: 'cubic-bezier(0.22, 1, 0.36, 1)',
         fn: (t: number) => 1 + --t * t * t * t * t
       })
@@ -146,14 +159,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/mixin.scss';
-
 .player {
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: 3fr 4fr;
   column-gap: 50px;
+  padding-bottom: calc(#{$h-topbar} + #{$h-playbar});
   width: 100%;
-  height: calc(100vh - #{2 * $h-topbar} - #{$h-playbar});
+  height: calc(100vh - #{$h-topbar});
 }
 
 .player-l {
@@ -161,28 +174,21 @@ export default defineComponent({
 
   .cover {
     position: relative;
-    display: inline-block;
     width: 100%;
     padding-bottom: 100%;
     border-radius: $radius_3;
-    text-align: center;
-    font-size: 0;
-    line-height: 350px;
-    transition: transform 0.6s cubic-bezier(0.35, 1.55, 0.65, 1);
     transform: scale(1);
+    transition: transform 0.6s cubic-bezier(0.35, 1.55, 0.65, 1);
 
     img {
       position: absolute;
       top: 0;
       left: 50%;
-      display: inline-block;
-      box-sizing: border-box;
       max-width: 100%;
       max-height: 100%;
       border-radius: $radius_5;
-      vertical-align: middle;
-      transform: translateX(-50%);
       box-shadow: 0px 20px 50px rgba(30, 30, 30, 0.5);
+      transform: translateX(-50%);
     }
 
     &.is-pause {
@@ -204,8 +210,15 @@ export default defineComponent({
     position: absolute;
     top: 0;
     right: 0;
-    color: $gray;
+    padding: 5px 5px;
     font-size: $fs_xl;
+    color: $gray_1;
+    border-radius: $radius_1;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: scale(1.2);
+    }
   }
 
   .title {
@@ -213,6 +226,7 @@ export default defineComponent({
 
     .song-name {
       padding-right: 40px;
+      line-height: 1.2em;
       @include ellipsis-lines;
       @include themeify {
         color: Color(--font-color_primary);
@@ -258,9 +272,9 @@ export default defineComponent({
     );
 
     li {
-      padding: 15px 25px 0 3px;
+      padding: 8px 25px 8px 3px;
       font-size: $fs_xl;
-      line-height: 1.2em;
+      line-height: 1em;
       color: transparent;
       transform: scale(0.85) translate3d(0, 0, 0);
       transform-origin: left;
@@ -269,12 +283,21 @@ export default defineComponent({
         text-shadow: 0 0 4px Color(--font-color_gray);
       }
 
+      ::v-deep .tlrc {
+        font-size: $fs_m;
+      }
+
       &.is-current {
         transform: scale(1);
         @include themeify {
           color: Color(--font-color_primary);
         }
       }
+    }
+
+    .no-lrc {
+      font-size: $fs_xl;
+      text-align: center;
     }
   }
 }

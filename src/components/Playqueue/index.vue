@@ -21,7 +21,9 @@
       <ul class="songlist-container">
         <li v-for="song in SonglistLoad" :key="song.id" class="songlist__item">
           <div class="cover" @mouseenter="showRemoveBtn(song.id)" @mouseleave="showRemoveBtn(-1)">
-            <img :src="utils.getImage(song.album.picUrl, '100y100')" />
+            <el-image :src="utils.getImage(song.album.picUrl, '100y100')" lazy />
+
+            <!-- 正在播放图标 -->
             <div v-if="playingSong && song.id === playingSong.id" class="playing-icon-wrap">
               <PlayingIcon :is-playing="isPlaying" :audio-svg="true" />
             </div>
@@ -30,11 +32,11 @@
             <transition name="fade">
               <button
                 v-if="
-                  (!playingSong && song.id === removeBtnIndex) ||
-                    (playingSong && playingSong.id !== song.id && song.id === removeBtnIndex)
+                  (playingSong && playingSong.id !== song.id && song.id === removeBtnIndex) ||
+                    (!playingSong && song.id === removeBtnIndex)
                 "
                 class="btn-remove"
-                @click="onClickRemoveBtn(song.id)"
+                @click.stop="onClickRemoveBtn(song.id)"
               >
                 <Icon name="del" />
               </button>
@@ -58,6 +60,8 @@
           </div>
         </li>
       </ul>
+
+      <Divider text="没有更多数据了～" />
     </div>
   </div>
 </template>
@@ -67,10 +71,9 @@ import { computed, defineComponent, reactive, toRefs } from 'vue'
 import { useStore } from '@/store'
 import { AllMTypes } from '@/store/types'
 import { SongInfoTypes } from '@/store/modules/player/types'
+import { utils } from '@/utils/index'
 
 import PlayingIcon from '@/components/PlayingIcon/index.vue'
-
-import { utils } from '@/utils/index'
 
 export default defineComponent({
   name: 'Playqueue',
@@ -202,7 +205,7 @@ export default defineComponent({
   box-sizing: border-box;
   flex: 1;
   overflow-y: auto;
-  padding: 0 15px 15px 15px;
+  padding: 0 15px;
   width: 100%;
   @include scrollbar-style();
 
@@ -285,7 +288,7 @@ export default defineComponent({
     overflow: hidden;
     margin-left: 5px;
     padding: 5px;
-    font-size: $fs_s;
+    font-size: $fs_xs;
     @include flex-between;
     @include themeify {
       border-bottom: 1px solid Color(--bg-color_aside_hover);

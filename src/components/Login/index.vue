@@ -21,11 +21,11 @@
       </template>
 
       <div class="user-info">
-        <p><span>动态</span><span>123</span></p>
+        <p><span>动态</span><span>99</span></p>
         <el-divider direction="vertical" />
-        <p><span>关注</span><span>123</span></p>
+        <p><span>关注</span><span>99</span></p>
         <el-divider direction="vertical" />
-        <p><span>粉丝</span><span>999999</span></p>
+        <p><span>粉丝</span><span>99</span></p>
       </div>
 
       <button class="btn-logout" @click="onClickLogoutBtn"><Icon name="logout" /> 退出登录</button>

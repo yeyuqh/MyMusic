@@ -80,6 +80,7 @@ export default defineComponent({
 
     onBeforeRouteUpdate(() => {
       onClickOutside()
+      store.commit(AllMTypes.HidePlayerDetail) // 路由发生变化时关闭播放详情页
     })
 
     return { classObj, playerDetail, onClickOutside }
@@ -143,11 +144,11 @@ body {
   }
 
   .player-detail-container {
+    box-sizing: border-box;
     position: fixed;
     top: 0;
     left: 0;
     z-index: $z-player;
-    box-sizing: border-box;
     width: 100%;
     min-width: 640px;
     height: 100%;

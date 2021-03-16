@@ -1,5 +1,5 @@
 <template>
-  <div class="video"></div>
+  <div class="video">🇨🇳</div>
 </template>
 
 <script lang="ts">
@@ -10,4 +10,10 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.video {
+  height: 50vh;
+  font-size: 60px;
+  @include flex-center;
+}
+</style>

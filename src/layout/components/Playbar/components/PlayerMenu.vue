@@ -32,9 +32,7 @@ export default defineComponent({
       state.showPlayqueue = !state.showPlayqueue
     }
 
-    function onClickOutside(e: MouseEvent) {
-      const el = e.target as HTMLElement
-      if (el.className && el.className.indexOf('btn-remove') !== -1) return
+    function onClickOutside() {
       state.showPlayqueue = false
     }
 

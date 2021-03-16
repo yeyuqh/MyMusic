@@ -12,10 +12,7 @@ import { computed, defineComponent } from 'vue'
 export default defineComponent({
   name: 'Icon',
   props: {
-    name: {
-      type: String,
-      required: true
-    }
+    name: { type: String, required: true }
   },
 
   setup(props) {
@@ -27,10 +24,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-#icon {
-  pointer-events: none;
-}
-
 #icon svg {
   overflow: hidden;
   width: 1em;

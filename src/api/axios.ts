@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const request = axios.create({
   baseURL: '/api',
-  timeout: 8000
+  timeout: 15000
 })
 
 // 响应拦截

@@ -30,6 +30,9 @@ export default defineComponent({
   name: 'Theme',
 
   setup() {
+    function hh(e: HTMLElement) {
+      console.log(e)
+    }
     const store = useStore()
 
     const themes = [
@@ -77,7 +80,7 @@ export default defineComponent({
       document.body.style.transition = 'background-color 0.3s'
     })
 
-    return { themes, currentTheme, onClickThemeItem }
+    return { themes, currentTheme, onClickThemeItem, hh }
   }
 })
 </script>

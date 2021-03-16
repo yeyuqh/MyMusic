@@ -19,7 +19,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .divider {
-  margin-top: 50px;
+  margin: 15px 0;
   @include flex-between;
 
   .line {

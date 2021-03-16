@@ -1,6 +1,12 @@
 <template>
   <div class="app-main">
-    <router-view />
+    <router-view v-slot="{ Component, route }">
+      <!-- 只缓存首页数据 -->
+      <keep-alive>
+        <component :is="Component" v-if="route.meta.keepAlive" />
+      </keep-alive>
+      <component :is="Component" v-if="!route.meta.keepAlive" />
+    </router-view>
   </div>
 </template>
 

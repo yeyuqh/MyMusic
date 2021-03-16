@@ -18,7 +18,7 @@
       </p>
 
       <div class="menu-container">
-        <el-button size="small" type="primary" round>
+        <el-button size="small" type="primary" round @click="onClickPlayAll">
           <Icon name="play" />
           播放全部
         </el-button>
@@ -65,20 +65,27 @@
 
 <script lang="ts">
 import { defineComponent, nextTick, PropType, reactive, toRefs } from 'vue'
+import { useStore } from '@/store'
 import { utils } from '@/utils'
 
 import { PlaylistDetailTypes } from '@/api/playlist'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { AllATypes } from '@/store/types'
 
 export default defineComponent({
   name: 'PlaylistHeader',
   props: {
+    ids: { type: [Number, String], required: true },
     data: {
       type: Object as PropType<PlaylistDetailTypes['playlist']>,
       default: () => ({})
     }
   },
 
-  setup() {
+  setup(props) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const store = useStore()
+
     const state = reactive({
       openDescrip: false,
       openDescripBtnVisible: false
@@ -94,7 +101,11 @@ export default defineComponent({
       }
     }
 
-    return { utils, ...toRefs(state), refDescription_$, open }
+    function onClickPlayAll() {
+      store.dispatch(AllATypes.ADD_PLAYING_SONG, props.ids)
+    }
+
+    return { utils, ...toRefs(state), refDescription_$, onClickPlayAll }
   }
 })
 </script>

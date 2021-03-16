@@ -13,20 +13,20 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Discovery',
         component: () => import('@/views/discovery/index.vue'),
         redirect: '/discovery/recommend',
-        meta: { title: '发现音乐', isNav: true, icon: 'music' },
+        meta: { title: '发现音乐', isNav: true, icon: 'music', keepAlive: true },
 
         children: [
           {
             path: '/discovery/recommend',
             name: 'Recommend',
             component: () => import('@/views/discovery/recommend/index.vue'),
-            meta: { title: '个性推荐' }
+            meta: { title: '个性推荐', keepAlive: true }
           },
           {
             path: '/discovery/playlists',
             name: 'Playlists',
             component: () => import('@/views/discovery/playlists/index.vue'),
-            meta: { title: '歌单' }
+            meta: { title: '歌单', keepAlive: false }
           }
         ]
       },
@@ -34,12 +34,13 @@ const routes: Array<RouteRecordRaw> = [
         path: '/video',
         name: 'Video',
         component: () => import('@/views/video/index.vue'),
-        meta: { title: '视频', isNav: true, icon: 'video' }
+        meta: { title: '视频', isNav: true, icon: 'video', keepAlive: false }
       },
       {
         path: 'playlist',
         name: 'Playlist',
-        component: () => import('@/views/playlist/index.vue')
+        component: () => import('@/views/playlist/index.vue'),
+        meta: { keepAlive: false }
       }
     ]
   }

@@ -1,8 +1,8 @@
 <template>
-  <div v-if="playingSong" class="player-info" @click="onClickInfo">
+  <div v-if="playingSong" class="player-info">
     <div class="cover">
       <img :src="utils.getImage(playingSong.album.picUrl, '100y100')" alt="" />
-      <button class="btn-open" @click.stop="onClickOpenBtn">
+      <button class="btn-open" @click="onClickOpenBtn">
         <Icon :name="playerDetail.opened ? 'shrink' : 'arrow-expand'" />
       </button>
     </div>
@@ -43,11 +43,7 @@ export default defineComponent({
       store.commit(AllMTypes.TogglePlayerDetail)
     }
 
-    function onClickInfo() {
-      store.commit(AllMTypes.OpenPlayerDetail)
-    }
-
-    return { utils, playerDetail, playingSong, progress, onClickOpenBtn, onClickInfo }
+    return { utils, playerDetail, playingSong, progress, onClickOpenBtn }
   }
 })
 </script>
