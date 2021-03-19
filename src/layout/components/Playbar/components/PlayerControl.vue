@@ -88,7 +88,7 @@ export default defineComponent({
       duration: 0, // 歌曲时长
       volume: 1,
       muted: false, // 是否静音
-      repeat: playMod.value === PlayModTypes.repeat // 单曲循环
+      repeat: computed(() => playMod.value === PlayModTypes.repeat) // 单曲循环
     })
 
     // 获取 Audio 元素
@@ -102,6 +102,8 @@ export default defineComponent({
     }
     function handlePlayEnded() {
       if (playMod.value !== PlayModTypes.repeat) {
+        console.log(2)
+
         if (playqueue.value.length === 1) {
           currentTime.value = 0
           store.commit(AllMTypes.ChangePlayState, false)

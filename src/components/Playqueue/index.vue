@@ -61,7 +61,7 @@
         </li>
       </ul>
 
-      <Divider text="没有更多数据了～" />
+      <Divider :text="songlist.length ? '没有更多数据了～' : '您还没有播放任何歌曲!'" :line="false" />
     </div>
   </div>
 </template>
@@ -157,10 +157,10 @@ export default defineComponent({
   width: 350px;
   height: 100%;
   border-top-left-radius: $radius_3;
+  box-shadow: -5px 0 8px -5px rgba(30, 30, 30, 0.5);
   @include flex-between(column);
   @include themeify {
     background-color: Color(--bg-color_aside);
-    box-shadow: -5px 0 8px -5px rgba(30, 30, 30, 0.5);
   }
 
   &__header {

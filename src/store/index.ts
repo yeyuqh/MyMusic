@@ -34,7 +34,8 @@ const PRESERVE = createPersistedState({
     player: {
       playingSong: state.player.playingSong,
       playqueue: state.player.playqueue,
-      history: state.player.history
+      history: state.player.history,
+      playMod: state.player.playMod
     }
   })
 })

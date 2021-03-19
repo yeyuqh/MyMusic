@@ -16,13 +16,14 @@
     </div>
 
     <div class="tabs__component-container">
-      <component :is="currentTab" :id="id" :songlist="songlist" :type="CommentRequestTypes.playlist" />
+      <component :is="currentTab" :id="id" :songlist="songlist" :type="CommentRequestTypes.playlist" :top="25" />
+      <Loading v-if="pageNum !== 1 && loading" :top="25" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount, shallowReactive, toRefs } from 'vue'
+import { defineComponent, onBeforeMount, onUnmounted, reactive, toRefs } from 'vue'
 import { useRoute } from 'vue-router'
 import { utils } from '@/utils'
 
@@ -46,38 +47,67 @@ export default defineComponent({
       { name: '评论', component: 'Comment', count: true }
     ]
 
-    const state = shallowReactive({
+    const state = reactive({
       currentTab: defTab,
       commentCount: '0',
       id: route.query.id as string,
       detail: {} as PlaylistDetailTypes['playlist'],
       songlist: [] as SongsDetailTypes['songs'],
-      songIds: ''
+      songIds: '',
+      pageNum: 1,
+      pageSize: 50,
+      total: 0,
+      loading: false
     })
 
     function onClickTab(tab: any) {
       state.currentTab = tab.props.name
     }
 
+    let trackIds: PlaylistDetailTypes['playlist']['trackIds']
     async function getPlaylistDetail() {
+      state.loading = true
+
       const { data: detail } = await getPlaylistDetail_(Number(state.id))
       state.detail = detail.playlist
       state.commentCount = detail.playlist.commentCount.toString()
 
-      const songsId = detail.playlist.trackIds
+      trackIds = detail.playlist.trackIds
+      state.total = Math.ceil(trackIds.length / state.pageSize)
+
       const ids: number[] = []
-      for (let i = 0, len = songsId.length; i < len; i++) {
-        ids.push(songsId[i].id)
+      const _trackIds = trackIds.slice((state.pageNum - 1) * state.pageSize, state.pageNum * state.pageSize)
+      for (let i = 0, len = _trackIds.length; i < len; i++) {
+        ids.push(_trackIds[i].id)
       }
 
       const _ids = ids.toString()
-      const { data: songlist } = await getSongsDetail_(_ids)
-      state.songlist = songlist.songs
+      const { data: songlist } = await getSongsDetail_(_ids).finally(() => (state.loading = false))
+      state.songlist.push(...songlist.songs)
       state.songIds = _ids
+
+      if (state.pageNum < state.total) state.pageNum++
+    }
+
+    let timer: any
+    function handleScrollGetNextSonglist() {
+      if (state.pageNum === state.total) return
+      clearTimeout(timer)
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement
+      timer = setTimeout(() => {
+        console.log(1)
+
+        if (scrollHeight - clientHeight - scrollTop < 200) getPlaylistDetail()
+      }, 30)
     }
 
     onBeforeMount(() => {
       getPlaylistDetail()
+      window.addEventListener('scroll', handleScrollGetNextSonglist)
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('scroll', handleScrollGetNextSonglist)
     })
 
     return { utils, CommentRequestTypes, ...toRefs(state), tabs, defTab, onClickTab }
@@ -88,10 +118,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .tabs-container {
   margin-top: 25px;
-}
-
-.tabs__component-container {
-  margin-top: 20px;
 }
 </style>
 

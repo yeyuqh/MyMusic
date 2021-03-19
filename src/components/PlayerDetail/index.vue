@@ -45,7 +45,7 @@ export default {
     // 监听滚动条事件，当滚动距离大于 50 时显示评论组件
     let timer: any
     function handlePlayerDetailScroll() {
-      if (timer) clearTimeout(timer)
+      clearTimeout(timer)
       timer = setTimeout(() => {
         if (playerDetail_$ && playerDetail_$.scrollTop > 50) {
           showComment.value = true
@@ -125,7 +125,7 @@ export default {
     position: relative;
     z-index: 1;
     @include themeify {
-      background-color: Color(--bg-color_main);
+      background-color: Color(--bg-color_blur);
     }
   }
 

@@ -214,8 +214,10 @@ type FreeTrialPrivilegeTypes = {
 
 // 歌词
 export type LyricTypes = {
-  lrc: LrcTypes
-  tlyric: TlyricTypes
+  lrc?: LrcTypes
+  tlyric?: TlyricTypes
+  nolyric?: boolean
+  uncollected?: boolean
   code: number
 }
 type LrcTypes = {

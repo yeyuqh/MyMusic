@@ -1,5 +1,5 @@
 <template>
-  <div class="video">🇨🇳</div>
+  <div class="video">🎞Video</div>
 </template>
 
 <script lang="ts">

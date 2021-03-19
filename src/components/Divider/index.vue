@@ -1,8 +1,8 @@
 <template>
   <div class="divider">
-    <span class="line"></span>
+    <span :class="['line', { 'no-line': !line }]"></span>
     <p v-if="text" class="text">{{ text }}</p>
-    <span class="line"></span>
+    <span :class="['line', { 'no-line': !line }]"></span>
   </div>
 </template>
 
@@ -12,7 +12,8 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'Divider',
   props: {
-    text: { type: String, default: '我是有底线的' }
+    text: { type: String, default: '我是有底线的' },
+    line: { type: Boolean, default: true }
   }
 })
 </script>
@@ -27,6 +28,10 @@ export default defineComponent({
     height: 1px;
     @include themeify {
       background-color: Color(--border-color_00);
+    }
+
+    &.no-line {
+      opacity: 0;
     }
   }
 

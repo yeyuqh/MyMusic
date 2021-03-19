@@ -34,7 +34,6 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-
 import { utils } from '@/utils'
 
 import { CommentTypes } from '@/api/comment'
@@ -44,7 +43,7 @@ export default defineComponent({
   props: {
     comments: {
       type: Array as PropType<CommentTypes['comments']>,
-      default: []
+      default: () => []
     } as const
   },
 

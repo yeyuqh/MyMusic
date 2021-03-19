@@ -1,6 +1,6 @@
 <template>
-  <div :ref="refCommentBox_$" class="comment">
-    <header v-if="header" class="comment__header-container">
+  <div :ref="refCommentBox_$" class="comment" :style="{ 'padding-top': top + 'px' }">
+    <header v-if="header" class="header-container">
       <h2>听友评论</h2>
       <span class="count">{{ `(已有${total}条评论)` }}</span>
     </header>
@@ -9,10 +9,12 @@
       <h4>精彩评论</h4>
       <CommentList :comments="hotComments" />
     </div>
+
     <div v-if="comments.length > 0" class="new-comment-container">
       <h4>最新评论</h4>
       <CommentList :comments="comments" />
     </div>
+
     <div v-if="!isLoading && !comments.length" class="no-comment">暂时还没有评论。</div>
 
     <el-pagination
@@ -48,8 +50,9 @@ export default defineComponent({
   props: {
     id: { type: [Number, String], required: true }, // 歌曲 | 歌单 ID
     type: { type: Number as PropType<CommentRequestTypes>, required: true }, // 评论类型
-    header: { type: Boolean, default: false },
-    isBodyScroll: { type: Boolean, default: true } // 滚动容器是否为 body
+    header: { type: Boolean, default: false }, // 是否显示 header
+    isBodyScroll: { type: Boolean, default: true }, // 滚动容器是否为 body
+    top: { type: Number, default: 0 }
   },
 
   setup(props) {
@@ -63,12 +66,12 @@ export default defineComponent({
     })
 
     let commentBox_$: HTMLElement
-
     function refCommentBox_$(el: HTMLElement | null) {
       if (el) nextTick(() => (commentBox_$ = el))
     }
 
     async function getComment() {
+      // 评论的类型
       const commentRequestMap = {
         [CommentRequestTypes.song]: getSongComment_,
         [CommentRequestTypes.playlist]: getPlaylistComment_
@@ -92,8 +95,9 @@ export default defineComponent({
     function onClickPageNumBtn(pageNum: number) {
       commentBox_$.style.height = '200vh'
 
+      // 当滚动容器为 body 时，使用滚动条定位
       if (props.isBodyScroll) document.documentElement.scrollTop = commentBox_$.offsetTop - 60
-      else commentBox_$.scrollIntoView()
+      else commentBox_$.scrollIntoView() // 当滚动容器不为 body 时，直接定位到该容器的顶部
 
       state.pageNum = pageNum
       getComment()
@@ -118,7 +122,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .comment {
-  .comment__header-container {
+  .header-container {
     margin-bottom: 15px;
     border-bottom: 1px solid $gray;
 

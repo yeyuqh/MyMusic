@@ -39,7 +39,7 @@
             ></li>
           </template>
           <div class="no-lrc">
-            <p v-if="lyricObj && !lyricObj.lyric.length" class="no-lrc">纯音乐，敬请欣赏！</p>
+            <p v-if="absMusic">纯音乐，敬请欣赏！</p>
             <p v-if="noLyric">暂时还没有歌词！</p>
           </div>
         </ul>
@@ -70,6 +70,7 @@ export default defineComponent({
     const state = shallowReactive({
       lyricObj: null as LyricTypes | null,
       noLyric: false,
+      absMusic: false,
       currentLrcLineTime: 0
     })
 
@@ -96,28 +97,35 @@ export default defineComponent({
 
     async function getSongLyric(id: number) {
       state.lyricObj = null // 清空歌词
+      state.noLyric = false
+      state.absMusic = false
 
       try {
         const { data: res } = await getSongLyric_(id)
-        state.noLyric = false
-        state.lyricObj = formatLyric(res.lrc.lyric) // 解析歌词
 
-        // 判断歌词是否有翻译
-        if (res.tlyric.lyric) {
-          const tlyricObj = formatLyric(res.tlyric.lyric)
-
-          for (const lrcRow of state.lyricObj.lyric) {
-            for (const tlrcRow of tlyricObj.lyric) {
-              if (tlrcRow.flag) continue
-              if (lrcRow.s === tlrcRow.s && lrcRow.text !== '') {
-                lrcRow.text += `<br/><span class="tlrc">${tlrcRow.text}</span>`
-                tlrcRow.flag = true // 标记
+        if (res.uncollected) {
+          state.noLyric = res.uncollected // 没有歌词
+          return
+        } else if (res.nolyric) {
+          state.absMusic = res.nolyric // 纯音乐
+          return
+        } else if (res.lrc) {
+          state.lyricObj = formatLyric(res.lrc.lyric) // 解析歌词
+          if (res.tlyric) {
+            const tlyricObj = formatLyric(res.tlyric.lyric) // 歌词翻译
+            for (const lrcRow of state.lyricObj.lyric) {
+              for (const tlrcRow of tlyricObj.lyric) {
+                if (tlrcRow.flag) continue
+                if (lrcRow.s === tlrcRow.s && lrcRow.text !== '') {
+                  lrcRow.text += `<br/><span class="tlrc">${tlrcRow.text}</span>`
+                  tlrcRow.flag = true // 标记
+                }
               }
             }
           }
         }
       } catch (err) {
-        state.noLyric = true
+        state.noLyric = true // 没有歌词
         console.log(err)
       }
 
@@ -142,7 +150,7 @@ export default defineComponent({
     watch(playingSong, (val) => {
       if (val) {
         getSongLyric(val.id)
-        bs.scrollTo(0, 0)
+        if (bs) bs.scrollTo(0, 0)
       }
     })
 
@@ -151,7 +159,9 @@ export default defineComponent({
     })
 
     // 关闭页面后销毁 better-scroll
-    onUnmounted(() => bs.destroy())
+    onUnmounted(() => {
+      if (bs) bs.destroy()
+    })
 
     return { ...toRefs(state), isPlaying, playingSong, refLyric_$, currentTime, onClickCloseBtn }
   }

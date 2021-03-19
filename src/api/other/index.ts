@@ -7,28 +7,11 @@ export function getBanners_() {
   return request.get<BannerListTypes>('/banner')
 }
 
-/**
- * @param id 歌单ID
- */
-export function getPlaylistComment_(id: number | string, pageSize: number, limit: number) {
-  return request.get<CommentTypes>('/comment/playlist', {
+// 搜索建议
+export function getSuggest_(keywords: string) {
+  return request.get<SuggestTypes>('/search/suggest', {
     params: {
-      id: id,
-      limit: limit,
-      offset: (pageSize - 1) * limit
-    }
-  })
-}
-
-/**
- * @param id 歌曲ID
- */
-export function getSongComment_(id: number | string, pageSize: number, limit: number) {
-  return request.get<CommentTypes>('/comment/music', {
-    params: {
-      id: id,
-      limit: limit,
-      offset: (pageSize - 1) * limit
+      keywords: keywords
     }
   })
 }
@@ -47,70 +30,64 @@ type Banner = {
   url?: string
 }
 
-//* 评论
-export type CommentTypes = {
-  isMusician: boolean
-  userId: number
-  topComments: any[]
-  moreHot: boolean
-  hotComments: CommentDetailTypes[] | undefined
-  commentBanner?: any
+// 搜索建议
+export type SuggestTypes = {
+  result: Result
   code: number
-  comments: CommentDetailTypes[]
-  total: number
-  more: boolean
 }
-type CommentDetailTypes = {
-  user: UserTypes
-  beReplied: BeRepliedTypes[] | []
-  pendantData?: any
-  showFloorComment?: any
+type Result = {
+  albums: AlbumElement[]
+  songs: Song[]
+  order: string[]
+}
+type AlbumElement = {
+  id: number
+  name: string
+  artist: Artist
+  publishTime: number
+  size: number
+  copyrightId: number
   status: number
-  commentId: number
-  content: string
-  time: number
-  likedCount: number
-  expressionUrl?: any
-  commentLocationType: number
-  parentCommentId: number
-  repliedMark?: any
-  liked: boolean
+  picId: number
+  mark: number
 }
-type BeRepliedTypes = {
-  user: UserTypes
-  beRepliedCommentId: number
-  content: string | null
+type Artist = {
+  id: number
+  name: string
+  picUrl: null | string
+  alias: string[]
+  albumSize: number
+  picId: number
+  img1v1Url: string
+  img1v1: number
+  alia?: string[]
+  trans: null
+}
+type Song = {
+  id: number
+  name: string
+  artists: Artist[]
+  album: SongAlbum
+  duration: number
+  copyrightId: number
   status: number
-  expressionUrl?: any
+  alias: string[]
+  rtype: number
+  ftype: number
+  mvid: number
+  fee: number
+  rUrl: null
+  mark: number
 }
-type UserTypes = {
-  locationInfo?: any
-  liveInfo?: any
-  anonym: number
-  userType: number
-  avatarDetail?: AvatarDetailTypes
-  authStatus: number
-  expertTags?: any
-  experts?: any
-  vipType: number
-  nickname: string
-  avatarUrl: string
-  userId: number
-  remarkName?: any
-  vipRights?: VipRightTypes
-}
-type VipRightTypes = {
-  associator?: AssociatorTypes
-  musicPackage?: any
-  redVipAnnualCount: number
-  redVipLevel: number
-}
-type AssociatorTypes = {
-  vipCode: number
-  rights: boolean
-}
-type AvatarDetailTypes = {
-  userType: number
-  identityLevel: number
-  identityIconUrl: string
+type SongAlbum = {
+  id: number
+  name: string
+  artist: Artist
+  publishTime: number
+  size: number
+  copyrightId: number
+  status: number
+  picId: number
+  alia?: string[]
+  mark: number
 }

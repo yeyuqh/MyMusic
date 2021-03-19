@@ -35,8 +35,7 @@ export default defineComponent({
   props: {
     banners: {
       type: Array as PropType<BannerListTypes['banners']>,
-      default: () => [],
-      required: true
+      default: () => []
     } as const
   },
 

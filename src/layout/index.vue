@@ -1,7 +1,10 @@
 <template>
   <div :class="['app-wrap', classObj]">
     <header class="topbar-container"><Topbar /></header>
-    <header class="topbar-container-r"><Theme /></header>
+    <header class="topbar-container-r">
+      <div class="search-bar-container"><SearchBar /></div>
+      <Theme />
+    </header>
 
     <transition name="left">
       <aside v-if="classObj.openSidebar" v-click-outside="onClickOutside" class="sidebar-container">
@@ -30,11 +33,12 @@ import clickOutside from '@/directives/click-outside'
 
 import { AppMain, Topbar, Sidebar, Playbar } from './components'
 import Theme from '@/components/Theme/index.vue'
+import SearchBar from '@/components/SearchBar/index.vue'
 import PlayerDetail from '@/components/PlayerDetail/index.vue'
 
 export default defineComponent({
   name: 'Layout',
-  components: { AppMain, Topbar, Sidebar, Playbar, Theme, PlayerDetail },
+  components: { AppMain, Topbar, Sidebar, Playbar, Theme, SearchBar, PlayerDetail },
   directives: { clickOutside },
 
   setup() {
@@ -114,6 +118,10 @@ body {
     z-index: $z-topbar_r;
     height: $h-topbar;
     @include flex-center;
+
+    .search-bar-container {
+      margin-right: 10px;
+    }
   }
 
   .sidebar-container {

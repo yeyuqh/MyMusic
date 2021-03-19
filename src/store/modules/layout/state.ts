@@ -5,7 +5,7 @@ const state: LayoutState = {
   sidebar: {
     opened: false
   },
-  theme: ThemeTypes.light
+  theme: ThemeTypes.dark
 }
 
 export default state
