@@ -28,7 +28,7 @@ import { useRoute } from 'vue-router'
 import { utils } from '@/utils'
 
 import Header from './components/Header.vue'
-import Songlist from './components/Songlist.vue'
+import Songlist from '@/components/Songlist/index.vue'
 import Comment, { CommentRequestTypes } from '@/components/Comment/index.vue'
 
 import { getPlaylistDetail_, PlaylistDetailTypes } from '@/api/playlist'
@@ -123,10 +123,6 @@ export default defineComponent({
 
 <style lang="scss">
 .el-tabs {
-  .el-tabs__header {
-    margin: 0;
-  }
-
   .el-tabs__nav-wrap {
     &::after {
       @include themeify {

@@ -1,10 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
+import Layout from '@/layout/index.vue'
+import Page_404 from '@/views/error/page_404.vue'
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Layout',
-    component: () => import('@/layout/index.vue'),
+    component: Layout,
     redirect: '/discovery',
 
     children: [
@@ -37,10 +40,21 @@ const routes: Array<RouteRecordRaw> = [
         meta: { title: '视频', isNav: true, icon: 'video', keepAlive: false }
       },
       {
-        path: 'playlist',
+        path: '/playlist',
         name: 'Playlist',
         component: () => import('@/views/playlist/index.vue'),
         meta: { keepAlive: false }
+      },
+      {
+        path: '/search',
+        name: 'search',
+        component: () => import('@/views/search/index.vue'),
+        meta: { keepAlive: false }
+      },
+      {
+        path: '/:pathMatch(.*)',
+        name: 'Error',
+        component: Page_404
       }
     ]
   }

@@ -13,11 +13,11 @@
 }
 
 // flex
-@mixin flex-center($direction: row, $aligin-items: center) {
+@mixin flex-center($direction: row, $align-items: center) {
   display: flex;
   flex-direction: $direction;
   justify-content: center;
-  align-items: $aligin-items;
+  align-items: $align-items;
 }
 
 @mixin flex-between($direction: row, $between: space-between) {

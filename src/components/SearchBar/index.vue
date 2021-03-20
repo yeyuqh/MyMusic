@@ -10,6 +10,7 @@
           type="text"
           placeholder="搜索"
           @focus="openSearchList"
+          @keyup.enter="goToSearchDetail(keywords)"
         />
       </label>
       <transition name="right">
@@ -23,6 +24,7 @@
 
 <script lang="ts">
 import { defineComponent, nextTick, reactive, toRefs, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useStore } from '@/store'
 import { AllATypes } from '@/store/types'
 import clickOutside from '@/directives/click-outside'
@@ -37,6 +39,7 @@ export default defineComponent({
   directives: { clickOutside },
 
   setup() {
+    const router = useRouter()
     const store = useStore()
 
     const state = reactive({
@@ -64,12 +67,20 @@ export default defineComponent({
       state.showSearchList = false
     }
 
+    function goToSearchDetail(keywords: string) {
+      if (keywords === '') return
+      router.push({
+        path: '/search',
+        query: { keywords: keywords }
+      })
+    }
+
     function onClickSuggest(sug: any) {
       // 判断点击的是否为歌曲。歌曲直接播放，其他则跳转到搜索详情页
       if (sug.duration) {
         store.dispatch(AllATypes.ADD_PLAYING_SONG, sug.id)
         hideSearchList()
-      }
+      } else goToSearchDetail(state.keywords)
     }
 
     let timer: any
@@ -83,7 +94,7 @@ export default defineComponent({
       }
     )
 
-    return { ...toRefs(state), refInputContainer_$, openSearchList, hideSearchList, onClickSuggest }
+    return { ...toRefs(state), refInputContainer_$, openSearchList, hideSearchList, goToSearchDetail, onClickSuggest }
   }
 })
 </script>
